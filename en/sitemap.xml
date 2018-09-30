@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/post/</loc>
+      <lastmod>2018-09-30T14:26:40+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/publication/</loc>
+      <lastmod>2018-09-30T14:26:40+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/talk/</loc>
+      <lastmod>2018-09-30T14:26:40+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/categories/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/categories/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/categories/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/</loc>
+      <lastmod>2018-09-30T16:12:23+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/publication_types/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication_types/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/publication_types/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+</urlset>

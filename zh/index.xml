@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>朱良君 on 朱良君</title>
+    <link>http://zhulj.net/zh/</link>
+    <description>Recent content in 朱良君 on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0800</lastBuildDate>
+    <atom:link href="/zh/" rel="self" type="application/rss+xml" />
+    
+  </channel>
+</rss>
