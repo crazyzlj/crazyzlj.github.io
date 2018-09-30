@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>doxygen on 朱良君</title>
+    <link>http://zhulj.net/zh/tags/doxygen/</link>
+    <description>Recent content in doxygen on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Tue, 12 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://zhulj.net/zh/tags/doxygen/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>如何利用Github Pages, Doxygen和Travis CI构建自动更新文档系统</title>
+      <link>http://zhulj.net/zh/post/2016-04-12-automatic-documentation-publishing-with-github-and-travisci/</link>
+      <pubDate>Tue, 12 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/zh/post/2016-04-12-automatic-documentation-publishing-with-github-and-travisci/</guid>
+      <description>参考资料： 1.Creating Project Pages manually by Github 2.Automatic Documentation Publishing with GitHub and TravisCI 3.Deploying Docs on Github with Travis-CI 1 手工创建Github Pages # 克隆一个纯净仓库 git clone github.com/user/repository.git # 创建gh-pages分支 cd repository git checkout --orphan gh-pages # 这个</description>
+    </item>
+    
+  </channel>
+</rss>

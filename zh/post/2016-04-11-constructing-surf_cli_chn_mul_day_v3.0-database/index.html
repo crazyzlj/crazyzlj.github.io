@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="朱良君">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="利用Python批量下载中国地面气候资料日值数据集(V3.0)数据集，并将原始数据整理为易用格式存入SQLite数据库，随后可根据站点号和起止日期查询数据。
+">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="http://zhulj.net/zh/post/2016-04-11-constructing-surf_cli_chn_mul_day_v3.0-database/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#0095eb">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/zh/styles.css">
+  
+  <link rel="stylesheet" href="/css/custom.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-75301149-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  <link rel="feed" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="http://zhulj.net/zh/post/2016-04-11-constructing-surf_cli_chn_mul_day_v3.0-database/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="朱良君">
+  <meta property="og:url" content="http://zhulj.net/zh/post/2016-04-11-constructing-surf_cli_chn_mul_day_v3.0-database/">
+  <meta property="og:title" content="批量下载中国地面气候资料日值数据集(V3.0)并建立SQLite数据库 | 朱良君">
+  <meta property="og:description" content="利用Python批量下载中国地面气候资料日值数据集(V3.0)数据集，并将原始数据整理为易用格式存入SQLite数据库，随后可根据站点号和起止日期查询数据。
+">
+  
+  
+    
+  <meta property="og:image" content="http://zhulj.net/img/icon-192.png">
+  <meta property="og:locale" content="zh-Hans">
+  
+  <meta property="article:published_time" content="2016-04-11T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-09-30T22:17:46&#43;08:00">
+  
+
+  
+
+  
+
+  <title>批量下载中国地面气候资料日值数据集(V3.0)并建立SQLite数据库 | 朱良君</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/zh/">朱良君</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#about">
+            
+            <span>首页</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#publications_selected">
+            
+            <span>论著</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#posts">
+            
+            <span>博客</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#projects">
+            
+            <span>项目</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#course">
+            
+            <span>教程</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#contact">
+            
+            <span>联系</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/files/cv_ljzhu_chs.pdf">
+            
+            <span>简历</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container body-content docs">
+  <div class="row">
+
+    <nav id="docs-navbar" class="docs-nav visible-md visible-lg affix">
+
+      <ul id="docs-main-nav">
+        
+      </ul>
+    </nav>
+
+    <div class="col-md-2">
+      <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+        <h4>Topics</h4>
+        
+        <ul>
+        
+        </ul>
+      </nav>
+    </div>
+
+    <div class="col-sm-9 col-md-8 body">
+
+      <article class="article" itemscope itemtype="http://schema.org/Article">
+
+        
+
+
+        <div class="article-container">
+          <div class="article-inner">
+            <h1 itemprop="name">批量下载中国地面气候资料日值数据集(V3.0)并建立SQLite数据库</h1>
+
+            <div class="article-style" itemprop="articleBody">
+              
+
+<h1 id="0-更新说明">0 更新说明</h1>
+
+<h2 id="0-1-关于时制和日界的问题-2017-7-25">0.1.关于时制和日界的问题（2017-7-25）</h2>
+
+<p>该数据集采用的是“北京时，日界20时”，也就是说记录为“2013-02-04”的数据应为“2013-02-04 20:00:00”，是“2013-02-03 20:00:01 ~ 2013-02-04 20:00:00 UTC+8” （当然，认为是“2013-02-03 20:00:00 ~ 2013-02-04 19:59:59 UTC+8”也可）这段时间的属性值，转换为UTC时间为“2013-02-04 12:00:00”。</p>
+
+<p>原始数据格式为“YYYY MM DD”，为了方便使用，数据库中统一将时间保存为“<strong>YYYY MM DD 20:00:00</strong>”，即“<strong>北京时 UTC+8</strong>”！</p>
+
+<h2 id="0-2-关于数据更新频率">0.2.关于数据更新频率</h2>
+
+<p>可根据官网的数据更新频率实时更新，一般来讲延迟半年，即2018年6月可获取最新至2017年12月31日的数据。</p>
+
+<h1 id="1-需求分析">1 需求分析</h1>
+
+<blockquote>
+<p>“<a href="http://data.cma.cn/dataService/index/datacode/SURF_CLI_CHN_MUL_DAY_V3.0.html" title="SURF_CLI_CHN_MUL_DAY_V3.0" target="_blank">中国地面气候资料日值数据集(V3.0)</a>”包含了中国824个基准、基本气象站1951年1月以来本站气压、气温、降水量、蒸发量、相对湿度、风向风速、日照时数和0cm地温要素的日值数据。截至2017年12月31日的数据量为8.35 GB。</p>
+</blockquote>
+
+<p>降水、气温、风速、相对湿度等气象资料对流域建模是至关重要的数据，<a href="http://data.cma.cn/" target="_blank">中国气象数据网</a>为我们提供了良好的数据共享平台。其中，最常用的当属中国地面气候资料日值数据集(V3.0)，其站点分布如图1所示（实际下载下来是839个），目前数据已更新至2017年12月。</p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fchina-meteo-sites.jpg" width="600"></p>
+
+<p><strong>图1. 中国839个基准、基本气象站分布图</strong></p>
+
+<p>但是，网站更新之后，数据只能按照时间检索，如图2所示，对只想下载某几个站点非常不便。</p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fsearch.jpg" alt="search" /></p>
+
+<p><strong>图2. 中国地面气候资料日值数据集(V3.0)数据检索界面</strong></p>
+
+<p>但是，这样下载下来是存有每月数据的链接，如图3所示。</p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fdown-links.jpg" width="800"></p>
+
+<p><strong>图3. 下载链接</strong></p>
+
+<p>手动逐条下载显然不太现实，即便是逐条下载了，每个数据文件含有800多个站点某个月的某一类指标（降水、气温等）的数据，因此，如果想得到某个站点某时间段内所有气象指标数据，实属不易。</p>
+
+<p>因此，考虑：</p>
+
+<ul>
+<li><p>1.批量下载数据文件（txt）；</p></li>
+
+<li><p>2.读取数据并按站点存入数据库（SQLite）；</p></li>
+
+<li><p>3.按照站点及时间范围从数据库中提取数据。</p></li>
+</ul>
+
+<h1 id="2-实现">2 实现</h1>
+
+<h2 id="2-1-批量下载">2.1 批量下载</h2>
+
+<p>批量下载比较简单，调用<code>urllib2</code>库即可，核心代码如下：</p>
+
+<pre><code class="language-python">def downloadByUrl(curUrl, filePath):
+    f = urllib2.urlopen(curUrl)
+    data = f.read()
+    with open(filePath, &quot;wb&quot;) as code:
+        code.write(data)
+</code></pre>
+
+<h2 id="2-2-存入数据库">2.2 存入数据库</h2>
+
+<p>包括气象站点数据结构及如何写入SQLite数据库代码设计。</p>
+
+<h3 id="2-2-1-气象站点数据结构">2.2.1 气象站点数据结构</h3>
+
+<ul>
+<li>原始记录中，每条记录均包含站点编号、经纬度、高程，造成数据冗余，因此设计一个站点父类<code>climateStation</code>，保存这些信息：</li>
+</ul>
+
+<pre><code class="language-python">class climateStation:
+    '''
+    base class of climate station
+    :method: init(ID, lat, lon, alti)
+    :method: printSation()
+    '''
+    def __init__(self, ID = '', lat=9999, lon=9999, alti=9999):
+        self.count     = 0
+        self.StationID = ID    ## 5 digits
+        self.lat       = lat   ## latitude, float degree
+        self.lon       = lon   ## longitude, float degree
+        self.alti      = alti  ## altitude, as ORIGIN: unit 0.1 meter
+    def printStation(self):
+        print('%s, %.3f, %.3f, %.1f' % (self.StationID, self.lat, self.lon, self.alti)
+</code></pre>
+
+<ul>
+<li>随后设计子类<code>climateFeatures</code>，用于保存每个站点所有的气象数据，其中<code>initValues()</code>方法用于添加一天记录时进行赋初值，<code>assignValuesByFtCode(idx, ftCode, ClimValues)</code>方法根据索引<code>idx</code>、气象数据类型<code>ftCode</code>和数据值<code>ClimValues</code>对当天数据进行修改，<code>check()</code>方法用于检查该站点数据是否具有一致条数，<code>printFeature()</code>方法用于打印该站点信息：</li>
+</ul>
+
+<pre><code class="language-python">class climateFeatures(climateStation):
+    '''
+    sub-class of climate feature
+    :method: init(ID, lat, lon, alti)
+    :method: initValues()
+    :method: assignValuesByFtCode(idx, ftCode, ClimValues)
+    :method: check()
+    :method: printFeature()
+    '''
+    def __init__(self, ID = '', lat=9999, lon=9999, alti=9999):
+        climateStation.__init__(self, ID, lat, lon, alti)
+        self.count     = 0
+        self.date      = []    ## date
+        self.avgPRS    = []    ## average pressure of the day, ORIGIN: unit 0.1 hPa
+        self.maxPRS    = []    ## maximum pressure of the day, ORIGIN: unit 0.1 hPa
+        self.minPRS    = []    ## minimum pressure of the day, ORIGIN: unit 0.1 hPa
+        self.avgTEM    = []    ## average temperature of the day, ORIGIN: unit 0.1 degree
+        self.maxTEM    = []    ## maximum temperature of the day
+        self.minTEM    = []    ## minimum temperature of the day
+        self.avgRHU    = []    ## average relative humidity, unit 1%
+        self.minRHU    = []    ## minimum relative humidity, nuit 1%
+        self.PRE208    = []    ## precipitation from 20:00 to 8:00
+        self.PRE820    = []    ## precipitation from 8:00 to 20:00
+        self.PRE       = []    ## precipitation from 20:00 to 20:00, ORIGIN: unit 0.1 mm
+        self.smEVP     = []    ## small evaporation, ORIGIN: unit 0.1 mm
+        self.lgEVP     = []    ## large evaporation, ORIGIN: unit 0.1 mm
+        self.avgWIN    = []    ## mean wind speed, ORIGIN: unit 0.1 m/s
+        self.maxWIN    = []    ## maximum wind speed, ORIGIN: unit 0.1 m/s
+        self.maxWINASP = []    ## aspect of maximum wind speed
+        self.extWIN    = []    ## extreme wind speed
+        self.extWINASP = []    ## aspect of extreme wind speed
+        self.SSD       = []    ## sunshine duration hours, ORIGIN: 0.1 hour
+        self.avgGST    = []    ## average ground surface temperature of the day, ORIGIN: 0.1 degree
+        self.maxGST    = []    ## maximum ground surface temperature of the day, ORIGIN: 0.1 degree
+        self.minGST    = []    ## minimum ground surface temperature of the day, ORIGIN: 0.1 degree
+        
+        
+    def initValues(self):
+        self.count += 1
+        self.avgPRS.append(9999)
+        self.maxPRS.append(9999)
+        self.minPRS.append(9999)
+        self.avgTEM.append(9999)
+        self.maxTEM.append(9999)
+        self.minTEM.append(9999)
+        self.avgRHU.append(9999)
+        self.minRHU.append(9999)
+        self.PRE208.append(9999)
+        self.PRE820.append(9999)
+        self.PRE.append(9999)
+        self.smEVP.append(9999)
+        self.lgEVP.append(9999)
+        self.avgWIN.append(9999)
+        self.maxWIN.append(9999)
+        self.maxWINASP.append(9999)
+        self.extWIN.append(9999)
+        self.extWINASP.append(9999)
+        self.SSD.append(9999)
+        self.avgGST.append(9999)
+        self.maxGST.append(9999)
+        self.minGST.append(9999)
+        
+    def assignValuesByFtCode(self, idx, ftCode, ClimValues):
+        ## ['PRS', 'TEM', 'RHU', 'PRE', 'EVP', 'WIN', 'SSD', 'GST']
+        if ftCode == 'PRS' and len(ClimValues) == 3:
+            self.avgPRS[idx] = ClimValues[0]
+            self.maxPRS[idx] = ClimValues[1]
+            self.minPRS[idx] = ClimValues[2]
+        elif ftCode == 'TEM' and len(ClimValues) == 3:
+            self.avgTEM[idx] = ClimValues[0]
+            self.maxTEM[idx] = ClimValues[1]
+            self.minTEM[idx] = ClimValues[2]
+        elif ftCode == 'RHU' and len(ClimValues) == 2:
+            self.avgRHU[idx] = ClimValues[0]
+            self.minRHU[idx] = ClimValues[1]
+        elif ftCode == 'PRE' and len(ClimValues) == 3:
+            self.PRE208[idx] = ClimValues[0]
+            self.PRE820[idx] = ClimValues[1]
+            self.PRE[idx] = ClimValues[2]
+        elif ftCode == 'EVP' and len(ClimValues) == 2:
+            self.smEVP[idx] = ClimValues[0]
+            self.lgEVP[idx] = ClimValues[1]
+        elif ftCode == 'WIN' and len(ClimValues) == 5:
+            self.avgWIN[idx] = ClimValues[0]
+            self.maxWIN[idx] = ClimValues[1]
+            self.maxWINASP[idx] = ClimValues[2]
+            self.extWIN[idx] = ClimValues[3]
+            self.extWINASP[idx] = ClimValues[4]
+        elif ftCode == 'SSD' and len(ClimValues) == 1:
+            self.SSD[idx] = ClimValues[0]
+        elif ftCode == 'GST' and len(ClimValues) == 3:
+            self.avgGST[idx] = ClimValues[0]
+            self.maxGST[idx] = ClimValues[1]
+            self.minGST[idx] = ClimValues[2]
+        else:
+            exit(1)
+    def check(self):
+        if self.count == len(self.date) \
+                == len(self.avgPRS) == len(self.maxPRS) == len(self.minPRS) \
+                == len(self.maxTEM) == len(self.minTEM) == len(self.avgTEM) \
+                == len(self.avgRHU) == len(self.minRHU) \
+                == len(self.PRE208) == len(self.PRE820) == len(self.PRE) \
+                == len(self.smEVP) == len(self.lgEVP) \
+                == len(self.avgWIN) == len(self.maxWIN) == len(self.maxWINASP) \
+                == len(self.extWIN) == len(self.extWINASP) == len(self.SSD) \
+                == len(self.avgGST) == len(self.maxGST) == len(self.minGST):
+            return True
+        else:
+            return False
+    def printFeature(self):
+        print('%s, lat=%.3f, lon=%.3f, alti=%.1f, count=%d, date=%s, PRS=%s, TEM=%s,'
+              ' RHU=%s, PRE=%s, EVP=%s, WIN=%s, SSD=%s, GST=%s' %
+              (self.StationID, self.lat, self.lon, self.alti, self.count, self.date,
+               self.avgPRS, self.avgTEM, self.avgRHU, self.PRE,
+               self.lgEVP, self.avgWIN, self.SSD, self.avgGST))
+</code></pre>
+
+<h3 id="2-2-2-写入sqlite数据库">2.2.2 写入SQLite数据库</h3>
+
+<p>逐个数据文件读取完之后，得到存有所有站点所有数据的数据字典，即：</p>
+
+<pre><code class="language-python">all_station_climate_data = {}  ##  format: StationID: climateFeatures()
+</code></pre>
+
+<p>设计函数<code>writeClimateDataToDatabase(allClimData, dbpath)</code>将数据写入数据库：</p>
+
+<pre><code class="language-python">def writeClimateDataToDatabase(allClimData, dbpath):
+    '''
+    write climate data to database
+    :param allClimData: climate data of all stations' directionary
+    :param dbpath: path of Sqlite database
+    '''
+    print &quot;Write climate data to database...&quot;
+    conn = sqlite3.connect(dbpath)
+    count = 1
+    for station in allClimData:
+        print &quot;---%d / %d, station ID: %s...&quot; % (count, len(allClimData), allClimData[station].StationID)
+        count += 1
+        stationTabName = 'S' + allClimData[station].StationID
+        create_climdata_tab_sql = '''CREATE TABLE IF NOT EXISTS %s (
+                        stID varchar(5) NOT NULL,
+                        date datetime DEFAULT NULL,
+                        avgPRS int DEFAULT 9999,
+                        maxPRS int DEFAULT 9999,
+                        minPRS int DEFAULT 9999,
+                        avgTEM int DEFAULT 9999,
+                        maxTEM int DEFAULT 9999,
+                        minTEM int DEFAULT 9999,
+                        avgRHU int DEFAULT 9999,
+                        minRHU int DEFAULT 9999,
+                        PRE208 int DEFAULT 9999,
+                        PRE820 int DEFAULT 9999,
+                        PRE int DEFAULT 9999,
+                        smEVP int DEFAULT 9999,
+                        lgEVP int DEFAULT 9999,
+                        avgWIN int DEFAULT 9999,
+                        maxWIN int DEFAULT 9999,
+                        maxWINASP int DEFAULT 9999,
+                        extWIN int DEFAULT 9999,
+                        extWINASP int DEFAULT 9999,
+                        SSD int DEFAULT 9999,
+                        avgGST int DEFAULT 9999,
+                        maxGST int DEFAULT 9999,
+                        minGST int DEFAULT 9999
+                        )''' % stationTabName
+        #print create_climdata_tab_sql
+        ### create current station climate data table
+        createTable(create_climdata_tab_sql, conn)
+        ### insert station information
+        curClimateData = allClimData[station]
+        fetchone_sql = 'SELECT * FROM %s WHERE stID = ? AND date = ?' % stationTabName
+        update_sql = '''UPDATE %s SET avgPRS = ?, maxPRS = ?, minPRS = ?, \
+                        avgTEM = ?, maxTEM = ?, minTEM = ?, avgRHU = ?, minRHU = ?,\
+                        PRE208 = ?, PRE820 = ?, PRE = ?, \
+                        smEVP = ?, lgEVP = ?, avgWIN = ?, maxWIN = ?,\
+                        maxWINASP = ?, extWIN = ?, extWINASP = ?, SSD = ?,\
+                        avgGST = ?, maxGST = ?, minGST = ? WHERE stID = ? AND date = ?''' \
+                     % stationTabName
+        save_sql = '''INSERT INTO %s values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''' % stationTabName
+        for i in range(curClimateData.count):
+            # If the current station record exists, then update it, else insert one.
+            uniqueitem = [curClimateData.StationID, curClimateData.date[i]]
+            dataRow = [curClimateData.StationID, curClimateData.date[i],
+                       curClimateData.avgPRS[i], curClimateData.maxPRS[i], curClimateData.minPRS[i],
+                       curClimateData.avgTEM[i], curClimateData.maxTEM[i], curClimateData.minTEM[i],
+                       curClimateData.avgRHU[i], curClimateData.minRHU[i],
+                       curClimateData.PRE208[i], curClimateData.PRE820[i],
+                       curClimateData.PRE[i], curClimateData.smEVP[i], curClimateData.lgEVP[i],
+                       curClimateData.avgWIN[i], curClimateData.maxWIN[i],
+                       curClimateData.maxWINASP[i],
+                       curClimateData.extWIN[i], curClimateData.extWINASP[i],
+                       curClimateData.SSD[i],
+                       curClimateData.avgGST[i], curClimateData.maxGST[i], curClimateData.minGST[i]]
+            # print(dataRow)
+            if fetchOneRecord(conn, fetchone_sql, uniqueitem):
+                updateRecord(conn, update_sql, dataRow[2:] + uniqueitem)
+                continue
+            saveRecord(conn, save_sql, dataRow)
+    conn.commit()
+    conn.close()
+</code></pre>
+
+<h2 id="2-3-读取数据库">2.3 读取数据库</h2>
+
+<p>读取数据库设计，包括查询条件输入格式及查询函数设计。</p>
+
+<h3 id="2-3-1-输入查询条件">2.3.1 输入查询条件</h3>
+
+<p>查询条件包括站号（为空则查询所有站点），起始时间和终止时间：</p>
+
+<pre><code class="language-python">## Input parameters
+    SQLITE_DB_PATH = r'...\SURF_CLI_CHN_MUL_DAY_V3.0.db'
+    QUERY_STATION_IDs = []       ## leave it blank to query all stations
+    QUERY_DATE_FROM = [1951,1,1] ## format: Year, Month, Day
+    QUERY_DATE_END  = [2015,12,31]
+    SAVE_PATH = r'...\results'
+</code></pre>
+
+<h3 id="2-3-2-查询函数设计">2.3.2 查询函数设计</h3>
+
+<p>输出为：</p>
+
+<ul>
+<li><p>1.站点经纬度、高程信息文件：<code>stationInfo.csv</code></p></li>
+
+<li><p>2.按站点名命名的气象数据文件：e.g., <code>S50527.csv</code></p></li>
+</ul>
+
+<pre><code class="language-python">def QueryDatabase(dbpath, savePath, stationIDs, startTime, endTime):
+    '''
+    Query and save data from Sqlite database
+    :param dbpath:
+    :param savePath:
+    :param stationIDs:
+    :param startTime:
+    :param endTime:
+    :return:
+    '''
+    tableList = getTablesList(dbpath)
+    conn = sqlite3.connect(dbpath)
+    stationInfoCSVPath = savePath + os.sep + 'stationInfo.csv'
+    stationInfoData = []
+    if stationIDs == []:
+        stationIDs = getTablesList(dbpath)
+    else:
+        for i in range(len(stationIDs)):
+            stationIDs[i] = 'S' + stationIDs[i]
+    for tabName in stationIDs:
+        #tabName = 'S' + stationID
+        stationID = tabName[1:]
+        if tabName in tableList:
+            csvPath = savePath + os.sep + tabName + '.csv'
+            startT = datetime.datetime(startTime[0], startTime[1], startTime[2])
+            endT = datetime.datetime(endTime[0], endTime[1], endTime[2])
+            startTStr = startT.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)[:10]
+            endTStr = endT.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)[:10]
+            fetch_data_sql = '''SELECT * FROM %s WHERE date BETWEEN &quot;%s&quot; AND &quot;%s&quot; ORDER BY date''' % (tabName, startTStr, endTStr)
+            #print fetch_data_sql
+            data = fetchData(conn,fetch_data_sql)
+            saveToCSV(data, csvPath)
+            fetch_station_sql = '''SELECT * FROM stationInfo WHERE stID=%s ''' % (stationID)
+            stationInfoData.append(fetchData(conn,fetch_station_sql))
+    saveToCSV(stationInfoData, stationInfoCSVPath,'stationInfo')
+    conn.close()
+</code></pre>
+
+<h1 id="3-站点经纬度及高程信息">3 站点经纬度及高程信息</h1>
+
+<p><i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i> 当完成数据库构建之后，我查询了几个站点，发现经纬度和高程信息与之前看到的有细微差异！</p>
+
+<p>检查后发现，我的代码是以站点编号进行索引的，而默认了其经纬度、高程信息是正确且无误的。</p>
+
+<p>显然，事实并非如此，我又重新跑了一遍数据，找到并总结了每个站点的不同信息（经纬度和高程），比如下图这样，不知道气象共享网的数据库是怎么设计的，<strong>难道没有检查过站点的经纬度和高程信息吗</strong>？</p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fstations_latlonalti.jpg" alt="stations_lat_lon_alti" /></p>
+
+<p><i class="fa fa-download fa-2x" aria-hidden="true"></i>Excel表格可以点击<a href="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fstations_all-%E6%89%80%E6%9C%89%E7%AB%99%E7%82%B9%E7%9A%84%E6%89%80%E6%9C%89%E4%B8%8D%E5%90%8C%E7%9A%84%E7%BB%8F%E7%BA%AC%E5%BA%A6%E9%AB%98%E7%A8%8B.csv" title="all_stations_latlonalti" target="_blank">这里</a>下载。</p>
+
+<h1 id="4-总结">4 总结</h1>
+
+<ul>
+<li><p>就是为了简单实现这么个功能，代码没进行优化设计，8G多的数据读取并存入一个数据字典中，非常耗时。</p></li>
+
+<li><p>最终得到的SQLite数据库文件大小为<strong>1.61</strong> GB，SQLite打开如图4。</p></li>
+</ul>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/climate%2Fsqlite-jietu.jpg" width="600"></p>
+
+<p><strong>图4. SURF_CLI_CHN_MUL_DAY_V3.0数据库截图</strong></p>
+
+<h1 id="5-数据获取">5 数据获取</h1>
+
+<p>自从本博客发表以来，已经累计帮助了几十位同学、老师、同行。如果对该数据集有兴趣，可邮件联系。</p>
+
+<p>另外，欢迎技术交流。</p>
+
+<p>Github: <a href="https://github.com/crazyzlj/Python/blob/master/HydroDataDownload/CreateDatabase_SURF_CLI_CHN_MUL_DAY.py" target="_blank">创建数据库</a>、<a href="https://github.com/crazyzlj/Python/blob/master/HydroDataDownload/ReadDatabase_SURF_CLI_CHN_MUL_DAY.py" target="_blank">查询数据库</a></p>
+
+<p>Email: crazyzlj@gmail.com</p>
+
+            </div>
+
+            
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tags/python/">Python</a>
+  
+  <a class="badge badge-light" href="/zh/tags/dataset/">Dataset</a>
+  
+</div>
+
+
+
+          </div>
+        </div>
+
+      </article>
+
+      <div class="body-footer">
+        最近更新于 2018-09-30
+      </div>
+
+    </div>
+
+    <div class="hidden-xs col-sm-3 col-md-2">
+      <nav id="docs-subnavbar" class="affix">
+        
+
+
+<nav id="toc" data-toggle="toc">
+  <h4 class="text-muted">Contents</h4>
+  <ul class="nav">
+    
+      
+      
+
+      
+      
+      
+
+      
+
+      <li>
+        <a href="#0-%e6%9b%b4%e6%96%b0%e8%af%b4%e6%98%8e">0 更新说明</a>
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#0-1-%e5%85%b3%e4%ba%8e%e6%97%b6%e5%88%b6%e5%92%8c%e6%97%a5%e7%95%8c%e7%9a%84%e9%97%ae%e9%a2%98-2017-7-25">0.1.关于时制和日界的问题（2017-7-25）</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#0-2-%e5%85%b3%e4%ba%8e%e6%95%b0%e6%8d%ae%e6%9b%b4%e6%96%b0%e9%a2%91%e7%8e%87">0.2.关于数据更新频率</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#1-%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90">1 需求分析</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-%e5%ae%9e%e7%8e%b0">2 实现</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#2-1-%e6%89%b9%e9%87%8f%e4%b8%8b%e8%bd%bd">2.1 批量下载</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-2-%e5%ad%98%e5%85%a5%e6%95%b0%e6%8d%ae%e5%ba%93">2.2 存入数据库</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#2-2-1-%e6%b0%94%e8%b1%a1%e7%ab%99%e7%82%b9%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84">2.2.1 气象站点数据结构</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-2-2-%e5%86%99%e5%85%a5sqlite%e6%95%b0%e6%8d%ae%e5%ba%93">2.2.2 写入SQLite数据库</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#2-3-%e8%af%bb%e5%8f%96%e6%95%b0%e6%8d%ae%e5%ba%93">2.3 读取数据库</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#2-3-1-%e8%be%93%e5%85%a5%e6%9f%a5%e8%af%a2%e6%9d%a1%e4%bb%b6">2.3.1 输入查询条件</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-3-2-%e6%9f%a5%e8%af%a2%e5%87%bd%e6%95%b0%e8%ae%be%e8%ae%a1">2.3.2 查询函数设计</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#3-%e7%ab%99%e7%82%b9%e7%bb%8f%e7%ba%ac%e5%ba%a6%e5%8f%8a%e9%ab%98%e7%a8%8b%e4%bf%a1%e6%81%af">3 站点经纬度及高程信息</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#4-%e6%80%bb%e7%bb%93">4 总结</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#5-%e6%95%b0%e6%8d%ae%e8%8e%b7%e5%8f%96">5 数据获取</a>
+
+        
+          
+        
+
+      
+    
+
+    
+    
+    
+
+  </ul>
+</nav>
+
+
+        <ul class="nav article-toc-top">
+          <li><a href="#">Back to Top</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2018 Liang-Jun Zhu &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/cpp.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/markdown.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/matlab.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//crazyzlj.disqus.com/count.js" async></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "论著",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="朱良君">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="利用百度地图API查询指定城市地名坐标，并利用ArcPy生成矢量Shapefile文件。
+">
+
+  
+  <link rel="alternate" hreflang="zh-Hans" href="http://zhulj.net/zh/post/2011-11-12-get-geographic-coordinates-of-given-place-based-on-baidumap-api/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#0095eb">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/zh/styles.css">
+  
+  <link rel="stylesheet" href="/css/custom.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-75301149-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  <link rel="feed" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="http://zhulj.net/zh/post/2011-11-12-get-geographic-coordinates-of-given-place-based-on-baidumap-api/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="朱良君">
+  <meta property="og:url" content="http://zhulj.net/zh/post/2011-11-12-get-geographic-coordinates-of-given-place-based-on-baidumap-api/">
+  <meta property="og:title" content="基于百度地图API获取指定城市地名坐标并生成ESRI Shapefile | 朱良君">
+  <meta property="og:description" content="利用百度地图API查询指定城市地名坐标，并利用ArcPy生成矢量Shapefile文件。
+">
+  
+  
+    
+  <meta property="og:image" content="http://zhulj.net/img/icon-192.png">
+  <meta property="og:locale" content="zh-Hans">
+  
+  <meta property="article:published_time" content="2011-11-12T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-09-30T22:17:46&#43;08:00">
+  
+
+  
+
+  
+
+  <title>基于百度地图API获取指定城市地名坐标并生成ESRI Shapefile | 朱良君</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/zh/">朱良君</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#about">
+            
+            <span>首页</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#publications_selected">
+            
+            <span>论著</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#posts">
+            
+            <span>博客</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#projects">
+            
+            <span>项目</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#course">
+            
+            <span>教程</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#contact">
+            
+            <span>联系</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/files/cv_ljzhu_chs.pdf">
+            
+            <span>简历</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container body-content docs">
+  <div class="row">
+
+    <nav id="docs-navbar" class="docs-nav visible-md visible-lg affix">
+
+      <ul id="docs-main-nav">
+        
+      </ul>
+    </nav>
+
+    <div class="col-md-2">
+      <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+        <h4>Topics</h4>
+        
+        <ul>
+        
+        </ul>
+      </nav>
+    </div>
+
+    <div class="col-sm-9 col-md-8 body">
+
+      <article class="article" itemscope itemtype="http://schema.org/Article">
+
+        
+
+
+        <div class="article-container">
+          <div class="article-inner">
+            <h1 itemprop="name">基于百度地图API获取指定城市地名坐标并生成ESRI Shapefile</h1>
+
+            <div class="article-style" itemprop="articleBody">
+              
+
+<h2 id="1-需求分析及解决思路">1. 需求分析及解决思路</h2>
+
+<p>我们经常会想获取一些地点的经纬度坐标，比如北京市所有三甲医院列表及地址，如果对数据精度要求不高（不在意火星坐标的影响），使用百度地图API提供的返回坐标功能恰巧能满足这个需求。</p>
+
+<ul>
+<li>调用<code>百度地图JS版API</code>，查询地点并将得到的经纬度坐标保存成<code>CSV文件</code>；</li>
+<li>利用<code>Python</code>调用<code>Arcpy</code>将CSV文件中的经纬度转换成<code>ESRI Shapefile</code>。</li>
+</ul>
+
+<h2 id="2-实现">2. 实现</h2>
+
+<ul>
+<li>程序是2011年11月写的，当时使用的是<code>百度地图 API JS版 v1.2</code>，我测试了一下，虽然历经版本迭代更新，这个代码依然可用。图1为运行效果。</li>
+</ul>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/baidu-API-search-locations/2011-11-12-search-for-coordinates-based-on-baidumap-api.png" alt="2011-11-12-search-for-coordinates-based-on-baidumap-api.png" /></p>
+
+<p>图1 基于百度地图模糊查询地名并返回经纬度坐标</p>
+
+<p><i class="fa fa-download fa-2x" aria-hidden="true"></i>完整代码如下，<a href="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/baidu-API-search-locations/SearchForLocationCoordinateFromBaiduAPI.html" target="_blank">下载</a>。</p>
+
+<ul>
+<li>将坐标点<code>CSV文件</code>和以下代码放入同一个文件夹下，设置<code>CSVName</code>,<code>XName</code>和<code>YName</code>后运行即可得到<code>ESRI Shapefile</code>。</li>
+</ul>
+
+<p>如果没有安装<code>ArcGIS</code>，即<code>Arcpy</code>不可用，可以选择调用<code>GDAL</code>，在此不再赘述。</p>
+
+<p><i class="fa fa-download fa-2x" aria-hidden="true"></i> <a href="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/baidu-API-search-locations/designed_samples.csv" target="_blank">运行示例点坐标下载</a>，<a href="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/baidu-API-search-locations/CSV2PtsShp.py" target="_blank">Python脚本下载</a></p>
+
+<pre><code class="language-python">#! /usr/bin/env python
+#coding=utf-8
+## Author : Liangjun Zhu
+## Email : crazyzlj@gmail.com
+## Date : 2015-1-23
+## Usage : Convert a .csv filetype points file to a vector shapefile
+##         put this .py file in the same folder, input the file name and 
+##         x,y column name.
+import os,sys
+import arcpy
+from arcpy import env
+
+def currentPath():
+    path = sys.path[0]
+    if os.path.isdir(path):
+        return path
+    elif os.path.isfile(path):
+        return os.path.dirname(path)
+
+def CSV2PtsShp(CSVFile,X,Y):
+    env.workspace = os.path.dirname(CSVFile)
+    PtsShp = os.path.basename(CSVFile)
+    PtsShp = PtsShp.split('.')[-2] + &quot;.shp&quot;
+    print PtsShp
+    try:
+        arcpy.MakeXYEventLayer_management(CSVFile,X,Y,&quot;tempLayer&quot;,&quot;&quot;,&quot;&quot;)
+        arcpy.CopyFeatures_management(&quot;tempLayer&quot;,PtsShp)
+    except:
+        print arcpy.GetMessages()
+        arcpy.AddMessage(arcpy.GetMessages())
+    
+    print os.path.dirname(CSVFile)
+    print &quot;%s Convert to Shp Done!&quot; % CSVFile
+
+if __name__ == '__main__':
+    CSVName = &quot;designed_samples.csv&quot;
+    XName = &quot;RecommendedX&quot;
+    YName = &quot;RecommendedY&quot;
+    currFolder = currentPath()
+    CSVFile = currFolder + os.sep + CSVName
+    CSV2PtsShp(CSVFile,XName,YName)
+</code></pre>
+
+            </div>
+
+            
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tags/python/">Python</a>
+  
+</div>
+
+
+
+          </div>
+        </div>
+
+      </article>
+
+      <div class="body-footer">
+        最近更新于 2018-09-30
+      </div>
+
+    </div>
+
+    <div class="hidden-xs col-sm-3 col-md-2">
+      <nav id="docs-subnavbar" class="affix">
+        
+
+
+<nav id="toc" data-toggle="toc">
+  <h4 class="text-muted">Contents</h4>
+  <ul class="nav">
+    
+      
+      
+
+      
+      
+      
+
+      
+
+      <li>
+        <a href="#1-%e9%9c%80%e6%b1%82%e5%88%86%e6%9e%90%e5%8f%8a%e8%a7%a3%e5%86%b3%e6%80%9d%e8%b7%af">1. 需求分析及解决思路</a>
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-%e5%ae%9e%e7%8e%b0">2. 实现</a>
+
+        
+          
+        
+
+      
+    
+
+    
+    
+    
+
+  </ul>
+</nav>
+
+
+        <ul class="nav article-toc-top">
+          <li><a href="#">Back to Top</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2018 Liang-Jun Zhu &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/cpp.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/markdown.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/matlab.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//crazyzlj.disqus.com/count.js" async></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "论著",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+

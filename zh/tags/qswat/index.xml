@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>QSWAT on 朱良君</title>
+    <link>http://zhulj.net/zh/tags/qswat/</link>
+    <description>Recent content in QSWAT on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Mon, 11 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://zhulj.net/zh/tags/qswat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用QSWAT进行SWAT建模(QSWAT教程)</title>
+      <link>http://zhulj.net/zh/post/2016-04-10-qswat-manual/</link>
+      <pubDate>Mon, 11 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/zh/post/2016-04-10-qswat-manual/</guid>
+      <description>1 写在前面 由于ArcGIS的广泛使用，ArcSWAT顺理成章成为SWAT建模者的首选，但相信很多人和我一样，使用ArcSWAT（尤其指适配A</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>坡位 on 朱良君</title>
+    <link>http://zhulj.net/zh/tags/%E5%9D%A1%E4%BD%8D/</link>
+    <description>Recent content in 坡位 on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Sat, 01 Sep 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://zhulj.net/zh/tags/%E5%9D%A1%E4%BD%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spatial optimization of watershed best management practices based on slope position units(基于坡位单元的流域最佳管理措施空间优化)</title>
+      <link>http://zhulj.net/zh/publication/2018-jswc-bmpsoptslppos/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-jswc-bmpsoptslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>以坡位为空间配置单元的流域管理措施情景优化方法</title>
+      <link>http://zhulj.net/zh/publication/2018-dqxxkxxb-bmpsoptslppos/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-dqxxkxxb-bmpsoptslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Automatic approach to deriving fuzzy slope positions(模糊坡位提取自动化方法)</title>
+      <link>http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

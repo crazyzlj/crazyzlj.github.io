@@ -22,9 +22,36 @@
     </item>
     
     <item>
+      <title>代表论著</title>
+      <link>http://zhulj.net/zh/home/publications_selected/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/home/publications_selected/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>最近论著</title>
+      <link>http://zhulj.net/zh/home/publications/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/home/publications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>报告</title>
+      <link>http://zhulj.net/zh/home/talks/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/home/talks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>最近博客</title>
       <link>http://zhulj.net/zh/home/posts/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0800</pubDate>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
       
       <guid>http://zhulj.net/zh/home/posts/</guid>
       <description></description>
@@ -33,7 +60,7 @@
     <item>
       <title>项目</title>
       <link>http://zhulj.net/zh/home/projects/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0800</pubDate>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
       
       <guid>http://zhulj.net/zh/home/projects/</guid>
       <description></description>
@@ -42,16 +69,34 @@
     <item>
       <title>软件及教程</title>
       <link>http://zhulj.net/zh/home/teaching/</link>
-      <pubDate>Wed, 20 Apr 2016 00:00:00 +0800</pubDate>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
       
       <guid>http://zhulj.net/zh/home/teaching/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>标签</title>
+      <link>http://zhulj.net/zh/home/tags/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/home/tags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>http://zhulj.net/zh/home/search/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/home/search/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>联系</title>
       <link>http://zhulj.net/zh/home/contact/</link>
-      <pubDate>Thu, 20 Sep 2018 00:00:00 +0800</pubDate>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
       
       <guid>http://zhulj.net/zh/home/contact/</guid>
       <description></description>

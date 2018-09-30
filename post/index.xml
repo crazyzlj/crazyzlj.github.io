@@ -11,5 +11,15 @@
 	<atom:link href="http://zhulj.net/post/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb)</title>
+      <link>http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/</guid>
+      <description>1 Requirement analysis ArcSWAT and QSWAT is the most two popular user interface for SWAT model users. SWAT-CUP has been widespreadly used to calibrate SWAT model which coupled SUFI2, PSO, GLUE, ParaSol, and MCMC procedures.
+Most users like to work with user-friendly interfaces (i.e., ArcSWAT and QSWAT, with SWATEditor inside) other than original SWAT input and output files (i.e., the TxtInOut folder). Because the latter has a large number of files and is not easy to handle.</description>
+    </item>
+    
   </channel>
 </rss>

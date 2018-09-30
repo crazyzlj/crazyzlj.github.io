@@ -6,9 +6,118 @@
     <description>Recent content in Tags on Liang-Jun Zhu</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Thu, 01 Mar 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="http://zhulj.net/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Automation</title>
+      <link>http://zhulj.net/tags/automation/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BMPs</title>
+      <link>http://zhulj.net/tags/bmps/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/bmps/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Experiments</title>
+      <link>http://zhulj.net/tags/experiments/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/experiments/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fuzzy membership</title>
+      <link>http://zhulj.net/tags/fuzzy-membership/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/fuzzy-membership/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GeoComputation</title>
+      <link>http://zhulj.net/tags/geocomputation/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/geocomputation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parallel computing</title>
+      <link>http://zhulj.net/tags/parallel-computing/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/parallel-computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://zhulj.net/tags/python/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SWAT</title>
+      <link>http://zhulj.net/tags/swat/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/tags/swat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SWAT-CUP</title>
+      <link>http://zhulj.net/tags/swat-cup/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/tags/swat-cup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Slope position</title>
+      <link>http://zhulj.net/tags/slope-position/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/slope-position/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spatial optimization</title>
+      <link>http://zhulj.net/tags/spatial-optimization/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/spatial-optimization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Watershed modeling and scenario analysis</title>
+      <link>http://zhulj.net/tags/watershed-modeling-and-scenario-analysis/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/tags/watershed-modeling-and-scenario-analysis/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

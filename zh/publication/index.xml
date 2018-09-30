@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications on 朱良君</title>
+    <link>http://zhulj.net/zh/publication/</link>
+    <description>Recent content in Publications on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Sat, 01 Sep 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://zhulj.net/zh/publication/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spatial optimization of watershed best management practices based on slope position units(基于坡位单元的流域最佳管理措施空间优化)</title>
+      <link>http://zhulj.net/zh/publication/2018-jswc-bmpsoptslppos/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-jswc-bmpsoptslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>以坡位为空间配置单元的流域管理措施情景优化方法</title>
+      <link>http://zhulj.net/zh/publication/2018-dqxxkxxb-bmpsoptslppos/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-dqxxkxxb-bmpsoptslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Automatic approach to deriving fuzzy slope positions(模糊坡位提取自动化方法)</title>
+      <link>http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SWAT模型非点源污染模拟对空间单元划分的响应</title>
+      <link>http://zhulj.net/zh/publication/2016-synydxxb-swathrudelieffects/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2016-synydxxb-swathrudelieffects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>一种基于线结构光技术的细沟形态测量系统</title>
+      <link>http://zhulj.net/zh/publication/2015-sdxb-laserscanner/</link>
+      <pubDate>Tue, 01 Dec 2015 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2015-sdxb-laserscanner/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>3种坡面流水深测量方法比较</title>
+      <link>http://zhulj.net/zh/publication/2015-stbctb-olflowmeasurementcmp/</link>
+      <pubDate>Mon, 01 Jun 2015 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2015-stbctb-olflowmeasurementcmp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>地表微地形测量及定量化方法研究综述</title>
+      <link>http://zhulj.net/zh/publication/2013-zgstbckx-reviewquantificationmicrotopography/</link>
+      <pubDate>Tue, 01 Oct 2013 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2013-zgstbckx-reviewquantificationmicrotopography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>坡面流超声波水深测量系统研究</title>
+      <link>http://zhulj.net/zh/publication/2013-stbcxb-olflowultrasonicmeasurement/</link>
+      <pubDate>Fri, 01 Feb 2013 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2013-stbcxb-olflowultrasonicmeasurement/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>4种土壤入渗测定方法的比较</title>
+      <link>http://zhulj.net/zh/publication/2012-stbctb-infiltrationmeasurecmp/</link>
+      <pubDate>Sat, 01 Dec 2012 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/zh/publication/2012-stbctb-infiltrationmeasurecmp/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

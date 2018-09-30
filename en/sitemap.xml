@@ -4,6 +4,61 @@
     
     <url>
     
+      <xhtml:link rel="alternate" href="http://zhulj.net/project/2011-msc-thesis/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/project/2011-msc-thesis/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/project/2011-msc-thesis/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/project/2014-phd-dissertation/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/project/2014-phd-dissertation/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/project/2014-phd-dissertation/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/publication/2018-jswc-bmpsoptslppos/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication/2018-jswc-bmpsoptslppos/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/publication/2018-jswc-bmpsoptslppos/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/publication/2018-geomorp-autofuzslppos/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/publication/2018-geomorp-autofuzslppos/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/publication/2017-geoderma-laserscannerappl/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/post/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/post/" hreflang="zh"/>
+    
       <loc>http://zhulj.net/post/</loc>
       <lastmod>2018-09-30T14:26:40+08:00</lastmod>
     </url>
@@ -11,6 +66,9 @@
   
     
     <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/publication/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication/" hreflang="zh"/>
     
       <loc>http://zhulj.net/publication/</loc>
       <lastmod>2018-09-30T14:26:40+08:00</lastmod>
@@ -28,10 +86,92 @@
     
     <url>
     
+      <loc>http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/publication/2016-jaridland-restorationeffectconductivity/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/publication_types/2/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication_types/2/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/publication_types/2/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/tags/automation/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/bmps/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/bmps/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/bmps/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <xhtml:link rel="alternate" href="http://zhulj.net/categories/" hreflang="en"/>
       <xhtml:link rel="alternate" href="http://zhulj.net/zh/categories/" hreflang="zh"/>
     
       <loc>http://zhulj.net/categories/</loc>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/experiments/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/experiments/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/experiments/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/tags/fuzzy-membership/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/geocomputation/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/geocomputation/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/geocomputation/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -51,10 +191,83 @@
     
     <url>
     
+      <loc>http://zhulj.net/tags/parallel-computing/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/project/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/project/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/project/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <xhtml:link rel="alternate" href="http://zhulj.net/publication_types/" hreflang="en"/>
       <xhtml:link rel="alternate" href="http://zhulj.net/zh/publication_types/" hreflang="zh"/>
     
       <loc>http://zhulj.net/publication_types/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/python/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/python/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/python/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/swat/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/swat/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/swat/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/tags/swat-cup/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/tags/slope-position/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>http://zhulj.net/tags/spatial-optimization/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -66,6 +279,19 @@
       <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/" hreflang="zh"/>
     
       <loc>http://zhulj.net/tags/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <xhtml:link rel="alternate" href="http://zhulj.net/tags/watershed-modeling-and-scenario-analysis/" hreflang="en"/>
+      <xhtml:link rel="alternate" href="http://zhulj.net/zh/tags/watershed-modeling-and-scenario-analysis/" hreflang="zh"/>
+    
+      <loc>http://zhulj.net/tags/watershed-modeling-and-scenario-analysis/</loc>
+      <lastmod>2018-09-30T22:17:46+08:00</lastmod>
       <priority>0</priority>
     </url>
     

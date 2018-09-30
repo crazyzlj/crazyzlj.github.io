@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="朱良君">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="坡位（如山脊、背坡、沟谷）的空间渐变特征可为地理建模提供重要的地形信息，这种空间渐变可用空间位置对坡位的模糊隶属度（或称相似度）值定量刻画，称之为模糊坡位。多数基于模糊分类思路的模糊坡位提取方法在数据准备和参数设定时需要大量人为干预，如Qin等（2009）提出的基于原型的模糊推理方法主要包括准备地形属性集、选取坡位典型位置及确定模糊推理参数三个步骤，易用性较差。模糊坡位通常采用的通用地形属性，包括一阶（如坡度）和二阶（如曲率）局部地形属性和区域地形属性（如相对位置指数），可通过自动化算法提取。坡位典型位置可通过地形属性及对应属性范围叠加后得到，属性范围可根据该地形属性的模糊推理函数形状及中心值确定，如S型函数取大于中心值的属性范围。模糊推理函数及参数可结合领域知识和对地形属性频率分布的数据挖掘（如bi-Gaussian模型）得到，如坡度一般由山脊增加至背坡然后减小至沟谷，因此坡度对于背坡的推理函数形状为钟形，结合bi-Gaussian模型拟合结果可最终确定推理参数。基于上述思路，以五类基本坡位为例，实现了一种模糊坡位提取自动化工作流，默认仅需输入研究区格网DEM即可得到提取模糊坡位信息，并允许自定义工作流配置（如参与推理的地形属性等）。自动化工作流涉及的计算密集型算法均基于消息传递并行库实现以提高计算效率。通过两个不同地形特征的研究区应用，表明了所提自动化方法的合理性、易用性和高效性。所提自动化方法思路可为类似地理学空间分析方法的自动化提供借鉴。">
+
+  
+  <link rel="alternate" hreflang="en" href="http://zhulj.net/publication/2018-geomorp-autofuzslppos/">
+  
+  <link rel="alternate" hreflang="zh-Hans" href="http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#0095eb">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/zh/styles.css">
+  
+  <link rel="stylesheet" href="/css/custom.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-75301149-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  <link rel="feed" href="http://zhulj.net/index.xml" type="application/rss+xml" title="朱良君">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="朱良君">
+  <meta property="og:url" content="http://zhulj.net/zh/publication/2018-geomorp-autofuzslppos/">
+  <meta property="og:title" content="Automatic approach to deriving fuzzy slope positions(模糊坡位提取自动化方法) | 朱良君">
+  <meta property="og:description" content="坡位（如山脊、背坡、沟谷）的空间渐变特征可为地理建模提供重要的地形信息，这种空间渐变可用空间位置对坡位的模糊隶属度（或称相似度）值定量刻画，称之为模糊坡位。多数基于模糊分类思路的模糊坡位提取方法在数据准备和参数设定时需要大量人为干预，如Qin等（2009）提出的基于原型的模糊推理方法主要包括准备地形属性集、选取坡位典型位置及确定模糊推理参数三个步骤，易用性较差。模糊坡位通常采用的通用地形属性，包括一阶（如坡度）和二阶（如曲率）局部地形属性和区域地形属性（如相对位置指数），可通过自动化算法提取。坡位典型位置可通过地形属性及对应属性范围叠加后得到，属性范围可根据该地形属性的模糊推理函数形状及中心值确定，如S型函数取大于中心值的属性范围。模糊推理函数及参数可结合领域知识和对地形属性频率分布的数据挖掘（如bi-Gaussian模型）得到，如坡度一般由山脊增加至背坡然后减小至沟谷，因此坡度对于背坡的推理函数形状为钟形，结合bi-Gaussian模型拟合结果可最终确定推理参数。基于上述思路，以五类基本坡位为例，实现了一种模糊坡位提取自动化工作流，默认仅需输入研究区格网DEM即可得到提取模糊坡位信息，并允许自定义工作流配置（如参与推理的地形属性等）。自动化工作流涉及的计算密集型算法均基于消息传递并行库实现以提高计算效率。通过两个不同地形特征的研究区应用，表明了所提自动化方法的合理性、易用性和高效性。所提自动化方法思路可为类似地理学空间分析方法的自动化提供借鉴。">
+  
+  
+    
+  <meta property="og:image" content="http://zhulj.net/img/icon-192.png">
+  <meta property="og:locale" content="zh-Hans">
+  
+  <meta property="article:published_time" content="2018-03-01T00:00:00&#43;08:00">
+  
+  <meta property="article:modified_time" content="2018-09-30T22:17:46&#43;08:00">
+  
+
+  
+
+  
+
+  <title>Automatic approach to deriving fuzzy slope positions(模糊坡位提取自动化方法) | 朱良君</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/zh/">朱良君</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="切换导航">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#about">
+            
+            <span>首页</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#publications_selected">
+            
+            <span>论著</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#posts">
+            
+            <span>博客</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#projects">
+            
+            <span>项目</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#course">
+            
+            <span>教程</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/zh/#contact">
+            
+            <span>联系</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/files/cv_ljzhu_chs.pdf">
+            
+            <span>简历</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+            <i class="fas fa-globe" aria-hidden="true"></i>
+            <span>中文 (简体)</span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/publication/2018-geomorp-autofuzslppos/">
+                <span>English</span>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
+
+  
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Automatic approach to deriving fuzzy slope positions(模糊坡位提取自动化方法)</h1>
+    <span class="pub-authors" itemprop="author">
+      
+      <b><I>朱良君</I></b>, 朱阿兴, 秦承志*, 刘军志
+      
+    </span>
+    <span class="float-right">
+      
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Automatic%20approach%20to%20deriving%20fuzzy%20slope%20positions%28%e6%a8%a1%e7%b3%8a%e5%9d%a1%e4%bd%8d%e6%8f%90%e5%8f%96%e8%87%aa%e5%8a%a8%e5%8c%96%e6%96%b9%e6%b3%95%29&amp;url=http%3a%2f%2fzhulj.net%2fzh%2fpublication%2f2018-geomorp-autofuzslppos%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=http%3a%2f%2fzhulj.net%2fzh%2fpublication%2f2018-geomorp-autofuzslppos%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2fzhulj.net%2fzh%2fpublication%2f2018-geomorp-autofuzslppos%2f&amp;title=Automatic%20approach%20to%20deriving%20fuzzy%20slope%20positions%28%e6%a8%a1%e7%b3%8a%e5%9d%a1%e4%bd%8d%e6%8f%90%e5%8f%96%e8%87%aa%e5%8a%a8%e5%8c%96%e6%96%b9%e6%b3%95%29"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=http%3a%2f%2fzhulj.net%2fzh%2fpublication%2f2018-geomorp-autofuzslppos%2f&amp;title=Automatic%20approach%20to%20deriving%20fuzzy%20slope%20positions%28%e6%a8%a1%e7%b3%8a%e5%9d%a1%e4%bd%8d%e6%8f%90%e5%8f%96%e8%87%aa%e5%8a%a8%e5%8c%96%e6%96%b9%e6%b3%95%29"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Automatic%20approach%20to%20deriving%20fuzzy%20slope%20positions%28%e6%a8%a1%e7%b3%8a%e5%9d%a1%e4%bd%8d%e6%8f%90%e5%8f%96%e8%87%aa%e5%8a%a8%e5%8c%96%e6%96%b9%e6%b3%95%29&amp;body=http%3a%2f%2fzhulj.net%2fzh%2fpublication%2f2018-geomorp-autofuzslppos%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+    </span>
+
+    
+
+    
+    <h3>摘要</h3>
+    <p class="pub-abstract" itemprop="text">坡位（如山脊、背坡、沟谷）的空间渐变特征可为地理建模提供重要的地形信息，这种空间渐变可用空间位置对坡位的模糊隶属度（或称相似度）值定量刻画，称之为模糊坡位。多数基于模糊分类思路的模糊坡位提取方法在数据准备和参数设定时需要大量人为干预，如Qin等（2009）提出的基于原型的模糊推理方法主要包括准备地形属性集、选取坡位典型位置及确定模糊推理参数三个步骤，易用性较差。模糊坡位通常采用的通用地形属性，包括一阶（如坡度）和二阶（如曲率）局部地形属性和区域地形属性（如相对位置指数），可通过自动化算法提取。坡位典型位置可通过地形属性及对应属性范围叠加后得到，属性范围可根据该地形属性的模糊推理函数形状及中心值确定，如S型函数取大于中心值的属性范围。模糊推理函数及参数可结合领域知识和对地形属性频率分布的数据挖掘（如bi-Gaussian模型）得到，如坡度一般由山脊增加至背坡然后减小至沟谷，因此坡度对于背坡的推理函数形状为钟形，结合bi-Gaussian模型拟合结果可最终确定推理参数。基于上述思路，以五类基本坡位为例，实现了一种模糊坡位提取自动化工作流，默认仅需输入研究区格网DEM即可得到提取模糊坡位信息，并允许自定义工作流配置（如参与推理的地形属性等）。自动化工作流涉及的计算密集型算法均基于消息传递并行库实现以提高计算效率。通过两个不同地形特征的研究区应用，表明了所提自动化方法的合理性、易用性和高效性。所提自动化方法思路可为类似地理学空间分析方法的自动化提供借鉴。</p>
+    
+
+    
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">类型</div>
+          <div class="col-12 col-md-9">
+            
+            <a href="/zh/publication/#2">
+              Journal article
+            </a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-md-none space-below"></div>
+    
+
+    
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">出版物</div>
+          <div class="col-12 col-md-9">Geomorphology, 304:173-183. doi:10.1016/j.geomorph.2017.12.024</div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-md-none space-below"></div>
+    
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading">日期</div>
+          <div class="col-12 col-md-9" itemprop="datePublished">
+            2018-03-01
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-sm-none space-below"></div>
+
+    <div class="row" style="padding-top: 10px">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-12 col-md-3 pub-row-heading" style="line-height:34px;">链接</div>
+          <div class="col-12 col-md-9">
+
+            
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1" href="https://www.sciencedirect.com/science/article/pii/S0169555X17300612" target="_blank" rel="noopener">
+  PDF
+</a>
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1" href="https://github.com/lreis2415/AutoFuzSlpPos" target="_blank" rel="noopener">
+  代码
+</a>
+
+
+
+
+  
+  <a class="btn btn-outline-primary my-1 mr-1" href="/zh/project/2014-phd-dissertation/">
+    项目
+  </a>
+  
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1" href="https://doi.org/10.1016/j.geomorph.2017.12.024" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div class="d-sm-none space-below"></div>
+
+    <div class="space-below"></div>
+
+    <div class="article-style"></div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/zh/tags/%E5%9D%A1%E4%BD%8D/">坡位</a>
+  
+  <a class="badge badge-light" href="/zh/tags/%E6%A8%A1%E7%B3%8A%E9%9A%B6%E5%B1%9E%E5%BA%A6/">模糊隶属度</a>
+  
+  <a class="badge badge-light" href="/zh/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">自动化</a>
+  
+  <a class="badge badge-light" href="/zh/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/">并行计算</a>
+  
+</div>
+
+
+
+
+  </div>
+</div>
+
+
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2018 Liang-Jun Zhu &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">引用</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> 复制
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> 下载
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//crazyzlj.disqus.com/count.js" async></script>
+    
+
+    
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "文章",
+        'project': "项目",
+        'publication' : "论著",
+        'talk' : "演讲"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+

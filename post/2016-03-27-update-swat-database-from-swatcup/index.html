@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 2.4.0">
+  <meta name="generator" content="Hugo 0.49" />
+  <meta name="author" content="Liang-Jun Zhu">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="When the calibration is done by SWAT-CUP, users have a desire to write the calibrated parameters back to SWAT database (i.e., `&lt;project name&gt;.mdb`), such as subjects in Google group, [Copy Calibrated parameters back to Arc SWAT model?](https://groups.google.com/forum/#!topic/swat-cup/ouqJUPbeqUw &#34;subject-1&#34;) and [Write back the parameters in arc swat?](https://groups.google.com/forum/#!topic/swat-cup/SRyTyrM6C0A &#34;subject-2&#34;). How should we do?
+">
+
+  
+  <link rel="alternate" hreflang="en-us" href="http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#0095eb">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href=//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono>
+  
+
+  <link rel="stylesheet" href="/styles.css">
+  
+  <link rel="stylesheet" href="/css/custom.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-75301149-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="http://zhulj.net/index.xml" type="application/rss+xml" title="Liang-Jun Zhu">
+  <link rel="feed" href="http://zhulj.net/index.xml" type="application/rss+xml" title="Liang-Jun Zhu">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Liang-Jun Zhu">
+  <meta property="og:url" content="http://zhulj.net/post/2016-03-27-update-swat-database-from-swatcup/">
+  <meta property="og:title" content="Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb) | Liang-Jun Zhu">
+  <meta property="og:description" content="When the calibration is done by SWAT-CUP, users have a desire to write the calibrated parameters back to SWAT database (i.e., `&lt;project name&gt;.mdb`), such as subjects in Google group, [Copy Calibrated parameters back to Arc SWAT model?](https://groups.google.com/forum/#!topic/swat-cup/ouqJUPbeqUw &#34;subject-1&#34;) and [Write back the parameters in arc swat?](https://groups.google.com/forum/#!topic/swat-cup/SRyTyrM6C0A &#34;subject-2&#34;). How should we do?
+">
+  
+  
+    
+  <meta property="og:image" content="http://zhulj.net/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2016-03-27T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-09-30T22:17:46&#43;08:00">
+  
+
+  
+
+  
+
+  <title>Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb) | Liang-Jun Zhu</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Liang-Jun Zhu</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#publications_selected">
+            
+            <span>Publications</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#projects">
+            
+            <span>Projects</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#course">
+            
+            <span>Course</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#contact">
+            
+            <span>Contact</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/files/cv_ljzhu_en.pdf">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container body-content docs">
+  <div class="row">
+
+    <nav id="docs-navbar" class="docs-nav visible-md visible-lg affix">
+
+      <ul id="docs-main-nav">
+        
+      </ul>
+    </nav>
+
+    <div class="col-md-2">
+      <nav id="small-nav" class="docs-nav hidden-md hidden-lg">
+        <h4>Topics</h4>
+        
+        <ul>
+        
+        </ul>
+      </nav>
+    </div>
+
+    <div class="col-sm-9 col-md-8 body">
+
+      <article class="article" itemscope itemtype="http://schema.org/Article">
+
+        
+
+
+        <div class="article-container">
+          <div class="article-inner">
+            <h1 itemprop="name">Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb)</h1>
+
+            <div class="article-style" itemprop="articleBody">
+              
+
+<h1 id="1-requirement-analysis">1 Requirement analysis</h1>
+
+<p><a href="http://swat.tamu.edu/software/arcswat/" title="ArcSWAT" target="_blank">ArcSWAT</a> and <a href="http://swat.tamu.edu/software/qswat/" title="QSWAT" target="_blank">QSWAT</a> is the most two popular user interface for SWAT model users. <a href="http://swat.tamu.edu/software/swat-cup/" title="SWAT-CUP" target="_blank">SWAT-CUP</a> has been widespreadly used to calibrate SWAT model which coupled SUFI2, PSO, GLUE, ParaSol, and MCMC procedures.</p>
+
+<p>Most users like to work with user-friendly interfaces (i.e., ArcSWAT and QSWAT, with <a href="http://swat.tamu.edu/software/arcswat/swateditor/" title="SWATEditor" target="_blank">SWATEditor</a> inside) other than original SWAT input and output files (i.e., the <strong>TxtInOut</strong> folder). Because the latter has a large number of files and is not easy to handle.</p>
+
+<p>So, when the calibration is done by SWAT-CUP, users have a desire to write the calibrated parameters back to SWAT database (i.e., <code>&lt;project name&gt;.mdb</code>), such as subjects in Google group, <a href="https://groups.google.com/forum/#!topic/swat-cup/ouqJUPbeqUw" title="subject-1" target="_blank">Copy Calibrated parameters back to Arc SWAT model?</a> and <a href="https://groups.google.com/forum/#!topic/swat-cup/SRyTyrM6C0A" title="subject-2" target="_blank">Write back the parameters in arc swat?</a></p>
+
+<p>Usually, we have two methods to accomplish this requirement.</p>
+
+<h2 id="1-1-manual-calibration-in-swateditor"><strong>1.1 Manual calibration in SWATEditor</strong></h2>
+
+<p>After the basis SWAT model is built, users may manual calibrate their model by modifying parameters using Manual Calibration Helper in SWATEditor (such as Fig.1 and Fig.2).</p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F1-manual-calibration-helper.jpg" alt="Fig.1-manual-calibration-helper" /></p>
+
+<p><strong>Fig.1 Manual calibration Helper in SWATEditor</strong></p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F2-manual-calibration-helper2.jpg" alt="Fig.2-manual-calibration-helper2" /></p>
+
+<p><strong>Fig.2 Parameter selection and modification GUI in SWATEditor</strong></p>
+
+<p>Besides the easy to learn and convenient, however, there are some drawbacks of this method:</p>
+
+<ul>
+<li>parameters are selected and may not sufficient for your model, e.g., <code>OV_N.hru</code> is not listed.</li>
+<li>parameters of specific soil layer is not capable to modified, e.g., <code>Sol_K</code> means <code>Sol_K</code> of all soil layers will be updated.</li>
+<li>the modified value may excess the absolutely value range which is defined in <code>Absolute_SWAT_Values.txt</code>. This is the probably reason that why the output of SWAT-CUP is different from the ArcSWAT or QSWAT after manually update the calibrated parameters.</li>
+<li>manually operation is <strong>tedious</strong> and <strong>error-prone</strong>.</li>
+</ul>
+
+<h2 id="1-2-manually-update-the-access-database"><strong>1.2 Manually update the Access database</strong></h2>
+
+<p>In order to overcome some of the drawbacks in the former method, users can use some simple SQL sentences to update the SWAT database manually.</p>
+
+<p>The usual steps is as follows:</p>
+
+<ul>
+<li>Open <code>&lt;project name&gt;.mdb</code> with Access</li>
+<li>Built a new query layout (see Fig.3 in details) (the Access used is Chinese version, please find the corresponding buttons in your computer)</li>
+<li>Type the SQL sentences and press run to update the table (see Fig.4).</li>
+</ul>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F3-manual-update-access-database.jpg" width="800">
+<strong>Fig.3 Build a new query layout in Access</strong></p>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F4-type-sql-sentences-and-run.jpg" width="800">
+<strong>Fig.4 Tyep SQL sentences and run update</strong></p>
+
+<p>Obviously, some advantage can be highlighted, such as:</p>
+
+<ul>
+<li>all parameters in SWAT can be customized.</li>
+<li>complex conditions can be implemented by using <code>where</code> keyword.</li>
+<li>a series of sentences can be run at a time for a single table, such as <code>hru</code>, <code>sol</code>, etc.</li>
+</ul>
+
+<p>By contrast, some drawbacks are also exposed:</p>
+
+<ul>
+<li>users should be familiar with the basic SQL grammar.</li>
+<li>this method is more error-prone and all operation should be careful!</li>
+</ul>
+
+<h2 id="1-3-can-it-be-automated"><strong>1.3 Can it be automated?</strong></h2>
+
+<p>After reviewing the common used methods above, the essential tips used to write the calibrated parameters back to SWAT database can be drawn as follows:</p>
+
+<ul>
+<li>the calibrated parameters is concluded in a single file named <code>model.in</code></li>
+<li>each item in <code>model.in</code> has the same scheme, <code>x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;</code> and can be convert as SQL update sentence</li>
+<li>each parameter has a absolutely value range that defined in <code>Absolute_SWAT_Values.txt</code></li>
+</ul>
+
+<p>Therefore, if we,</p>
+
+<ul>
+<li>read <code>model.in</code> and analysis each calibrated parameter item</li>
+<li>construct the corresponding SQL update sentence</li>
+<li>connect to Access database and run these SQL sentences</li>
+</ul>
+
+<p>it will be automated!</p>
+
+<h1 id="2-implementation">2 Implementation</h1>
+
+<h2 id="2-1-overview"><strong>2.1 Overview</strong></h2>
+
+<p>This automatic program is written in <code>python</code> and requires <code>pyodbc</code> package.</p>
+
+<h2 id="2-2-functions"><strong>2.2 Functions</strong></h2>
+
+<h3 id="2-2-1-paraidentifier-class">2.2.1 paraIdentifier class</h3>
+
+<p>Followed the &ldquo;Parameterization in SWAT-CUP&rdquo; in <code>SWAT-CUP manual.pdf</code>, I designed a class to manage the calibrated parameter scheme.</p>
+
+<p><strong><em>BE CAUTION:</em></strong>
+Currently, only fundamental function is implemented, <strong>Specification of Management Parameters</strong>, <strong>Specification of Crop Parameters</strong>, <strong>Specification of Pesticide Parameters</strong>, and <strong>Specification of Precipitation and Temperature Parameters</strong> are not considered!</p>
+
+<p>If your SWAT model need to update <code>fert.dat</code>, <code>pest.dat</code>, <code>plant.dat</code>, <code>septwq.dat</code>, <code>til.dat</code>, and <code>urban.dat</code>, it is highly recommended that copy these modified files in SWAT-CUP to your <code>TxtInOut</code> folder directly!</p>
+
+<pre><code class="language-python">class paraIdentifier:
+    ### the parameter identifier format proposed by SWAT-CUP
+    ### x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;
+    def __init__(self):
+        self.name      = ''    ### SWAT parameter name as it appears in the Absolute_SWAT_Values.txt
+        self.ext       = ''    ### SWAT file extention code or table name in SWAT database, e.g., sol, hru, rte, etc.
+        self.hydrogrp  = []    ### (Optional) soil hydrological group ('A', 'B', 'C', or 'D')
+        self.soltext   = []    ### (Optional) soil texture
+        self.landuse   = []    ### (Optional) landuse
+        self.subbsn    = []    ### (Optional) subbasin number(s)
+        self.slope     = []    ### (Optional) slope, e.g., '0-20'
+        self.indent    = ''    ### identifier code, v means replaced, a means added, r means multiplied.
+        self.value     = 9999  ###
+        self.lyr       = []    ### (Optional) soil layer number(s), e.g., 1,2,4-6 means 1,2,4,5,6
+</code></pre>
+
+<h3 id="2-2-2-workflow-functions">2.2.2 Workflow functions</h3>
+
+<p>Corresponding to the essential tips in section 1.3, I designed four function:</p>
+
+<ul>
+<li>ReadModelIn() -&gt; read <code>model.in</code></li>
+<li>ReadAbsoluteVal() -&gt; read <code>Absolute_SWAT_Values.txt</code></li>
+<li>ConstructSQLs() -&gt; Construct SQL update sentences</li>
+<li>UpdateSWATDatabase() -&gt; Run SQLs</li>
+</ul>
+
+<h2 id="2-3-download-and-execution"><strong>2.3 Download and Execution</strong></h2>
+
+<p><i class="fa fa-code-fork fa-2x" aria-hidden="true"></i>The script can be forked and downloaded at <a href="https://github.com/crazyzlj/Python/blob/master/SWAT_post_process/Update_SWAT_mdb_from_SWAT_CUP.py" target="_blank">Github-crazyzlj-python</a>.</p>
+
+<p>To run the script, you should have:</p>
+
+<ul>
+<li>python 2.X (x86 version)</li>
+<li>pyodbc (<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyodbc" title="pyodbc-whl-file" target="_blank">whl</a>)</li>
+</ul>
+
+<p><strong><em>Usage:</em></strong></p>
+
+<ul>
+<li>Get <code>model.in</code> from SWAT-CUP or manually create it. Here is an example:</li>
+</ul>
+
+<pre><code class="language-c">// .bsn
+v__SPCON.bsn	0.003
+// .chm
+v__SOL_NO3(1).chm	27
+// .gw
+v__ALPHA_BF.gw	0.95
+// .hru
+r__OV_N.hru	-0.40
+r__SLSUBBSN.hru__________40.0-9999	0.60
+// .mgt1
+r__BIOMIX.mgt	-0.13
+// .pnd
+r__PND_VOL.pnd	-0.15
+// .rte
+v__CH_ERODMO().rte	0.1
+// .sol
+r__SOL_K(1).sol	0.95
+// .swq
+r__RS4.swq	0.08
+// .wwq
+r__AI1.wwq	0.06
+</code></pre>
+
+<ul>
+<li>put <code>Update_SWAT_mdb_from_SWAT_CUP.py</code>,  <code>Absolute_SWAT_Values.txt</code>, and <code>model.in</code> into the folder of SWAT, i.e., the same folder with  <code>&lt;project name&gt;.mdb</code> (such as Fig. 5)</li>
+</ul>
+
+<p><img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F5-files-list.jpg" alt="files-list" /></p>
+
+<p><strong>Fig.5 Files list</strong></p>
+
+<ul>
+<li>open <code>Update_SWAT_mdb_from_SWAT_CUP.py</code> and assign your project name to <code>SWAT_PROJ_NAME</code> in line 277, such as</li>
+</ul>
+
+<pre><code class="language-python">SWAT_PROJ_NAME = 'zts2'
+</code></pre>
+
+<ul>
+<li>Run the python script. Fig.6 is the example output of one updated parameters. There are three SQLs to finish the update, one for relative or replace change, and the other two for absolutely range examination.
+<img src="http://zhulj-blog.oss-cn-beijing.aliyuncs.com/swatcup-2-swat-database%2F6-execution-windows.jpg" alt="Fig.6-output" /></li>
+</ul>
+
+<p><strong>Fig.6 Example output of one updated parameter</strong></p>
+
+<h1 id="3-conclusion">3 Conclusion</h1>
+
+<p>Currently, I just accomplished the basic function of writing calibrated parameters from SWAT-CUP back to SWAT database. Obviously, this first beta version is  incomplete and imperfect.</p>
+
+<p><strong>Any advises or bugs will be greatly welcome!</strong></p>
+
+            </div>
+
+            
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/swat/">SWAT</a>
+  
+  <a class="badge badge-light" href="/tags/swat-cup/">SWAT-CUP</a>
+  
+  <a class="badge badge-light" href="/tags/python/">Python</a>
+  
+</div>
+
+
+
+          </div>
+        </div>
+
+      </article>
+
+      <div class="body-footer">
+        Last updated on 2018-09-30
+      </div>
+
+    </div>
+
+    <div class="hidden-xs col-sm-3 col-md-2">
+      <nav id="docs-subnavbar" class="affix">
+        
+
+
+<nav id="toc" data-toggle="toc">
+  <h4 class="text-muted">Contents</h4>
+  <ul class="nav">
+    
+      
+      
+
+      
+      
+      
+
+      
+
+      <li>
+        <a href="#1-requirement-analysis">1 Requirement analysis</a>
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#1-1-manual-calibration-in-swateditor">1.1 Manual calibration in SWATEditor</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#1-2-manually-update-the-access-database">1.2 Manually update the Access database</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#1-3-can-it-be-automated">1.3 Can it be automated?</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#2-implementation">2 Implementation</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#2-1-overview">2.1 Overview</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-2-functions">2.2 Functions</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+          
+          <ul class="nav">
+          
+        
+
+        
+
+        
+
+        <li>
+          <a href="#2-2-1-paraidentifier-class">2.2.1 paraIdentifier class</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+
+        
+          </li>
+        
+
+        <li>
+          <a href="#2-2-2-workflow-functions">2.2.2 Workflow functions</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#2-3-download-and-execution">2.3 Download and Execution</a>
+
+        
+
+      
+    
+      
+      
+
+      
+      
+      
+
+      
+        
+        
+
+        
+
+        
+          
+          </li></ul></li>
+          
+        
+
+        
+
+        <li>
+          <a href="#3-conclusion">3 Conclusion</a>
+
+        
+          
+          </li></ul></li>
+          
+        
+
+      
+    
+
+    
+    
+    
+
+  </ul>
+</nav>
+
+
+        <ul class="nav article-toc-top">
+          <li><a href="#">Back to Top</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2018 Liang-Jun Zhu &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/cpp.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/python.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/markdown.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/matlab.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//crazyzlj.disqus.com/count.js" async></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "Search Results",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    <script src="/js/search.js"></script>
+    
+
+    
+    
+
+  </body>
+</html>
+

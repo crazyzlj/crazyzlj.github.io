@@ -11,5 +11,41 @@
 	<atom:link href="http://zhulj.net/publication/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Spatial optimization of watershed best management practices based on slope position units</title>
+      <link>http://zhulj.net/publication/2018-jswc-bmpsoptslppos/</link>
+      <pubDate>Sat, 01 Sep 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/publication/2018-jswc-bmpsoptslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Automatic approach for deriving fuzzy slope positions</title>
+      <link>http://zhulj.net/publication/2018-geomorp-autofuzslppos/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/publication/2018-geomorp-autofuzslppos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Biocrust wetting induced change in soil surface roughness as influenced by biocrust type, coverage and wetting patterns</title>
+      <link>http://zhulj.net/publication/2017-geoderma-laserscannerappl/</link>
+      <pubDate>Wed, 15 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/publication/2017-geoderma-laserscannerappl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Soil hydraulic conductivity as affected by vegetation restoration age on the Loess Plateau, China</title>
+      <link>http://zhulj.net/publication/2016-jaridland-restorationeffectconductivity/</link>
+      <pubDate>Tue, 15 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>http://zhulj.net/publication/2016-jaridland-restorationeffectconductivity/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

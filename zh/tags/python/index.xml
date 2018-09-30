@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on 朱良君</title>
+    <link>http://zhulj.net/zh/tags/python/</link>
+    <description>Recent content in Python on 朱良君</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&amp;copy; 2018 Liang-Jun Zhu</copyright>
+    <lastBuildDate>Mon, 11 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://zhulj.net/zh/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>批量下载中国地面气候资料日值数据集(V3.0)并建立SQLite数据库</title>
+      <link>http://zhulj.net/zh/post/2016-04-11-constructing-surf_cli_chn_mul_day_v3.0-database/</link>
+      <pubDate>Mon, 11 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/zh/post/2016-04-11-constructing-surf_cli_chn_mul_day_v3.0-database/</guid>
+      <description>0 更新说明 0.1.关于时制和日界的问题（2017-7-25） 该数据集采用的是“北京时，日界20时”，也就是说记录为“2013-02-04”的</description>
+    </item>
+    
+    <item>
+      <title>基于百度地图API获取指定城市地名坐标并生成ESRI Shapefile</title>
+      <link>http://zhulj.net/zh/post/2011-11-12-get-geographic-coordinates-of-given-place-based-on-baidumap-api/</link>
+      <pubDate>Sat, 12 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://zhulj.net/zh/post/2011-11-12-get-geographic-coordinates-of-given-place-based-on-baidumap-api/</guid>
+      <description>1. 需求分析及解决思路 我们经常会想获取一些地点的经纬度坐标，比如北京市所有三甲医院列表及地址，如果对数据精度要求不高（不在意火星坐标的影响），</description>
+    </item>
+    
+  </channel>
+</rss>
