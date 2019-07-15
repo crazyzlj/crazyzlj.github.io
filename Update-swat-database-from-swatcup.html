@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb)</title>
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75301149-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Liang-Jun Zhu</div>
+<div class="menu-item"><a href="index.html">Home</a></div>
+<div class="menu-item"><a href="cv.html">Biography</a></div>
+<div class="menu-item"><a href="index.zh.html">中文版</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Research</div>
+<div class="menu-item"><a href="paper.html">Paper</a></div>
+<div class="menu-item"><a href="software.html">Software</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Post&amp;Tutorial</div>
+<div class="menu-item"><a href="research_apps.html">Research&nbsp;apps</a></div>
+<div class="menu-item"><a href="watershed_modeling.html">Watershed&nbsp;modeling</a></div>
+<div class="menu-item"><a href="programming.html">Programming</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Links</div>
+<div class="menu-item"><a href="people.html">People</a></div>
+<div class="menu-item"><a href="gis_data.html">GIS&nbsp;data</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Automatically write Calibrated parameters by SWAT-CUP (model.in) back to SWAT Access database (.mdb)</h1>
+</div>
+<h2>1 Requirement analysis</h2>
+<p><a href="http://swat.tamu.edu/software/arcswat/" target=&ldquo;blank&rdquo;>ArcSWAT</a> and <a href="http://swat.tamu.edu/software/qswat/" target=&ldquo;blank&rdquo;>QSWAT</a> is the most two popular user interface for SWAT model users.
+<a href="http://swat.tamu.edu/software/swat-cup/" target=&ldquo;blank&rdquo;>SWAT-CUP</a> has been widespreadly used to calibrate SWAT model which coupled SUFI2, PSO, GLUE, ParaSol, and MCMC procedures.</p>
+<p>Most users like to work with user-friendly interfaces (i.e., ArcSWAT and QSWAT, with <a href="http://swat.tamu.edu/software/arcswat/swateditor/" target=&ldquo;blank&rdquo;>SWATEditor</a> inside)
+other than original SWAT input and output files (i.e., the <b>TxtInOut</b> folder). Because the latter has a large number of files and is not easy to handle.</p>
+<p>So, when the calibration is done by SWAT-CUP, users have a desire to write the calibrated parameters back to SWAT database (i.e., <tt>&lt;project name&gt;.mdb</tt>),
+such as subjects in Google group, <a href="https://groups.google.com/forum/#!topic/swat-cup/ouqJUPbeqUw" target=&ldquo;blank&rdquo;>Copy Calibrated parameters back to Arc SWAT model?</a>
+and <a href="https://groups.google.com/forum/#!topic/swat-cup/SRyTyrM6C0A" target=&ldquo;blank&rdquo;>Write back the parameters in arc swat?</a>.</p>
+<p>Usually, we have two methods to accomplish this requirement.</p>
+<h3>1.1 Manual calibration in SWATEditor</h3>
+<p>After the basis SWAT model is built, users may manual calibrate their model by modifying parameters using <tt>Manual Calibration Helper</tt> in SWATEditor
+(such as Fig.1 and Fig.2).</p>
+<table class="imgtable"><tr><td>
+<img src="images/1-manual-calibration-helper.jpg" alt="Fig.1-manual-calibration-helper" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.1 Manual calibration Helper in SWATEditor</b></p>
+<table class="imgtable"><tr><td>
+<img src="images/2-manual-calibration-helper2.jpg" alt="Fig.2-manual-calibration-helper2" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.2 Parameter selection and modification GUI in SWATEditor</b></p>
+<p>Besides the easy to learn and convenient, however, there are some drawbacks of this method:</p>
+<ul>
+<li><p>parameters are selected and may not sufficient for your model, e.g., <tt>OV_N.hru</tt> is not listed.</p>
+</li>
+<li><p>parameters of specific soil layer is not capable to modified, e.g., <tt>Sol_K</tt> means <tt>Sol_K</tt> of all soil layers will be updated.</p>
+</li>
+<li><p>the modified value may excess the absolutely value range which is defined in <tt>Absolute_SWAT_Values.txt</tt>.
+This is the probably reason that why the output of SWAT-CUP is different from the ArcSWAT or QSWAT after manually update the calibrated parameters.</p>
+</li>
+<li><p>manually operation is <b>tedious</b> and <b>error-prone</b>.</p>
+</li>
+</ul>
+<h3>1.2 Manually update the Access database</h3>
+<p>In order to overcome some of the drawbacks in the former method, users can use some simple SQL sentences to update the SWAT database manually.</p>
+<p>The usual steps is as follows:</p>
+<ul>
+<li><p>Open <tt>&lt;project name&gt;.mdb</tt> with Access</p>
+</li>
+<li><p>Built a new query layout (see Fig.3 in details) (the Access used is Chinese version, please find the corresponding buttons in your computer)</p>
+</li>
+<li><p>Type the SQL sentences and press run to update the table (see Fig.4).</p>
+</li>
+</ul>
+<table class="imgtable"><tr><td>
+<img src="images/3-manual-update-access-database.jpg" alt="3-manual-update-access-database" width="800px" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.3 Build a new query layout in Access</b></p>
+<table class="imgtable"><tr><td>
+<img src="images/4-type-sql-sentences-and-run.jpg" alt="4-type-sql-sentences-and-run" width="800px" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.4 Tyep SQL sentences and run update</b></p>
+<p>Obviously, some advantage can be highlighted, such as:</p>
+<ul>
+<li><p>all parameters in SWAT can be customized.</p>
+</li>
+<li><p>complex conditions can be implemented by using <tt>where</tt> keyword.</p>
+</li>
+<li><p>a series of sentences can be run at a time for a single table, such as <tt>hru</tt>, <tt>sol</tt>, etc.</p>
+</li>
+</ul>
+<p>By contrast, some drawbacks are also exposed:</p>
+<ul>
+<li><p>users should be familiar with the basic SQL grammar.</p>
+</li>
+<li><p>this method is more error-prone and all operation should be careful!</p>
+</li>
+</ul>
+<h3>1.3 Can it be automated?</h3>
+<p>After reviewing the common used methods above, the essential tips used to write the calibrated parameters back to SWAT database can be drawn as follows:</p>
+<ul>
+<li><p>the calibrated parameters is concluded in a single file named <tt>model.in</tt></p>
+</li>
+<li><p>each item in <tt>model.in</tt> has the same scheme, <tt>x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;</tt> and can be convert
+as SQL update sentence</p>
+</li>
+<li><p>each parameter has a absolutely value range that defined in <tt>Absolute_SWAT_Values.txt</tt></p>
+</li>
+</ul>
+<p>Therefore, if we,</p>
+<ul>
+<li><p>read <tt>model.in</tt> and analysis each calibrated parameter item</p>
+</li>
+<li><p>construct the corresponding SQL update sentence</p>
+</li>
+<li><p>connect to Access database and run these SQL sentences</p>
+</li>
+</ul>
+<p>it will be automated!</p>
+<h2>2 Implementation</h2>
+<h3>2.1 Overview</h3>
+<p>This automatic program is written in <tt>python</tt> and requires <tt>pyodbc</tt> package.</p>
+<h3>2.2 Functions</h3>
+<h4>2.2.1 paraIdentifier class</h4>
+<p>Followed the &ldquo;Parameterization in SWAT-CUP&rdquo; in <tt>SWAT-CUP manual.pdf</tt>, I designed a class to manage the calibrated parameter scheme.</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>BE CAUTION:</b></p>
+<p>Currently, only fundamental function is implemented, <b>Specification of Management Parameters</b>, <b>Specification of Crop Parameters</b>,
+<b>Specification of Pesticide Parameters</b>, and <b>Specification of Precipitation and Temperature Parameters</b> are not considered!</p>
+</div></div>
+<p>If your SWAT model need to update <tt>fert.dat</tt>, <tt>pest.dat</tt>, <tt>plant.dat</tt>, <tt>septwq.dat</tt>, <tt>til.dat</tt>, and <tt>urban.dat</tt>,
+it is highly recommended that copy these modified files in SWAT-CUP to your <tt>TxtInOut</tt> folder directly!</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+class paraIdentifier:
+    ### the parameter identifier format proposed by SWAT-CUP
+    ### x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;
+    def __init__(self):
+        self.name      = ''    ### SWAT parameter name as it appears in the Absolute_SWAT_Values.txt
+        self.ext       = ''    ### SWAT file extention code or table name in SWAT database, e.g., sol, hru, rte, etc.
+        self.hydrogrp  = []    ### (Optional) soil hydrological group ('A', 'B', 'C', or 'D')
+        self.soltext   = []    ### (Optional) soil texture
+        self.landuse   = []    ### (Optional) landuse
+        self.subbsn    = []    ### (Optional) subbasin number(s)
+        self.slope     = []    ### (Optional) slope, e.g., '0-20'
+        self.indent    = ''    ### identifier code, v means replaced, a means added, r means multiplied.
+        self.value     = 9999  ###
+        self.lyr       = []    ### (Optional) soil layer number(s), e.g., 1,2,4-6 means 1,2,4,5,6
+</pre></div></div>
+<h4>2.2.2 Workflow functions</h4>
+<p>Corresponding to the essential tips in section 1.3, I designed four function:</p>
+<ul>
+<li><p><tt>ReadModelIn()</tt> -&gt; read <tt>model.in</tt></p>
+</li>
+<li><p><tt>ReadAbsoluteVal()</tt> -&gt; read <tt>Absolute_SWAT_Values.txt</tt></p>
+</li>
+<li><p><tt>ConstructSQLs()</tt> -&gt; Construct SQL update sentences</p>
+</li>
+<li><p><tt>UpdateSWATDatabase()</tt> -&gt; Run SQLs</p>
+</li>
+</ul>
+<h3>2.3 Download and Execution</h3>
+<p>The script can be forked and downloaded at <a href="https://github.com/crazyzlj/Python/blob/master/SWAT_post_process/Update_SWAT_mdb_from_SWAT_CUP.py" target=&ldquo;blank&rdquo;>Github-crazyzlj-python</a>.</p>
+<p>To run the script, you should have:</p>
+<ul>
+<li><p>python 2.X (x86 version)</p>
+</li>
+<li><p>pyodbc (<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyodbc" target=&ldquo;blank&rdquo;>pyodbc-whl-file</a>)</p>
+</li>
+</ul>
+<p><b>Usage:</b></p>
+<ul>
+<li><p>Get <tt>model.in</tt> from SWAT-CUP or manually create it. Here is an example:</p>
+</li>
+</ul>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+// .bsn
+v__SPCON.bsn	0.003
+// .chm
+v__SOL_NO3(1).chm	27
+// .gw
+v__ALPHA_BF.gw	0.95
+// .hru
+r__OV_N.hru	-0.40
+r__SLSUBBSN.hru__________40.0-9999	0.60
+// .mgt1
+r__BIOMIX.mgt	-0.13
+// .pnd
+r__PND_VOL.pnd	-0.15
+// .rte
+v__CH_ERODMO().rte	0.1
+// .sol
+r__SOL_K(1).sol	0.95
+// .swq
+r__RS4.swq	0.08
+// .wwq
+r__AI1.wwq	0.06
+</pre></div></div>
+<ul>
+<li><p>put <tt>Update_SWAT_mdb_from_SWAT_CUP.py</tt>,  <tt>Absolute_SWAT_Values.txt</tt>, and <tt>model.in</tt> into the folder of SWAT, i.e.,
+the same folder with <tt>&lt;project name&gt;.mdb</tt> (such as Fig. 5)</p>
+</li>
+</ul>
+<table class="imgtable"><tr><td>
+<img src="images/5-files-list.jpg" alt="5-files-list" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.5 Files list</b></p>
+<ul>
+<li><p>open <tt>Update_SWAT_mdb_from_SWAT_CUP.py</tt> and assign your project name to <tt>SWAT_PROJ_NAME</tt> in line 277, such as</p>
+</li>
+</ul>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+SWAT_PROJ_NAME = 'zts2'
+</pre></div></div>
+<ul>
+<li><p>Run the python script. Fig.6 is the example output of one updated parameters.
+There are three SQLs to finish the update, one for relative or replace change, and the other two for absolutely range examination.</p>
+</li>
+</ul>
+<table class="imgtable"><tr><td>
+<img src="images/6-execution-windows.jpg" alt="6-execution-windows" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p><b>Fig.6 Example output of one updated parameter</b></p>
+<h2>3 Conclusion</h2>
+<p>Currently, I just accomplished the basic function of writing calibrated parameters from SWAT-CUP back to SWAT database.
+That means, this first beta version isincomplete and imperfect. </p>
+<p><b>Any advises or bugs will be greatly welcome!</b></p>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-07-15, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://www.math.ucla.edu/~wotaoyin/" target="blank">Prof. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>
