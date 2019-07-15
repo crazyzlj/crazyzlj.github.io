@@ -154,19 +154,19 @@ it is highly recommended that copy these modified files in SWAT-CUP to your <tt>
 <div class="codeblock">
 <div class="blockcontent"><pre>
 class paraIdentifier:
-    ### the parameter identifier format proposed by SWAT-CUP
-    ### x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;
+    <span class = "comment">### the parameter identifier format proposed by SWAT-CUP</span>
+    <span class = "comment">### x__&lt;parname&gt;.&lt;ext&gt;__&lt;hydrogrp&gt;__&lt;soltext&gt;__&lt;landuse&gt;__&lt;subbsn&gt;__&lt;slope&gt;</span>
     def __init__(self):
-        self.name      = ''    ### SWAT parameter name as it appears in the Absolute_SWAT_Values.txt
-        self.ext       = ''    ### SWAT file extention code or table name in SWAT database, e.g., sol, hru, rte, etc.
-        self.hydrogrp  = []    ### (Optional) soil hydrological group ('A', 'B', 'C', or 'D')
-        self.soltext   = []    ### (Optional) soil texture
-        self.landuse   = []    ### (Optional) landuse
-        self.subbsn    = []    ### (Optional) subbasin number(s)
-        self.slope     = []    ### (Optional) slope, e.g., '0-20'
-        self.indent    = ''    ### identifier code, v means replaced, a means added, r means multiplied.
-        self.value     = 9999  ###
-        self.lyr       = []    ### (Optional) soil layer number(s), e.g., 1,2,4-6 means 1,2,4,5,6
+        self.name      = ''    <span class = "comment">### SWAT parameter name as it appears in the Absolute_SWAT_Values.txt</span>
+        self.ext       = ''    <span class = "comment">### SWAT file extention code or table name in SWAT database, e.g., sol, hru, rte, etc.</span>
+        self.hydrogrp  = []    <span class = "comment">### (Optional) soil hydrological group ('A', 'B', 'C', or 'D')</span>
+        self.soltext   = []    <span class = "comment">### (Optional) soil texture</span>
+        self.landuse   = []    <span class = "comment">### (Optional) landuse</span>
+        self.subbsn    = []    <span class = "comment">### (Optional) subbasin number(s)</span>
+        self.slope     = []    <span class = "comment">### (Optional) slope, e.g., '0-20'</span>
+        self.indent    = ''    <span class = "comment">### identifier code, v means replaced, a means added, r means multiplied.</span>
+        self.value     = 9999  <span class = "comment">###</span>
+        self.lyr       = []    <span class = "comment">### (Optional) soil layer number(s), e.g., 1,2,4-6 means 1,2,4,5,6</span>
 </pre></div></div>
 <h4>2.2.2 Workflow functions</h4>
 <p>Corresponding to the essential tips in section 1.3, I designed four function:</p>
