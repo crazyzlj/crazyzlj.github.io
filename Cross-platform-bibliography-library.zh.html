@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>利用Zotero配合坚果云构建跨平台文献数据库</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75301149-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">朱良君</div>
+<div class="menu-item"><a href="index.zh.html">主页</a></div>
+<div class="menu-item"><a href="cv.zh.html">简历</a></div>
+<div class="menu-item"><a href="index.html">English&nbsp;homepage</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">科研</div>
+<div class="menu-item"><a href="paper.zh.html">论文</a></div>
+<div class="menu-item"><a href="software.zh.html">软件</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">博客&amp;教程</div>
+<div class="menu-item"><a href="research_apps.zh.html">科研相关软件&amp;环境配置</a></div>
+<div class="menu-item"><a href="watershed_modeling.zh.html">流域过程建模</a></div>
+<div class="menu-item"><a href="programming.zh.html">编程</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">链接</div>
+<div class="menu-item"><a href="people.zh.html">实验室成员</a></div>
+<div class="menu-item"><a href="gis_data.zh.html">GIS数据</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>利用Zotero配合坚果云构建跨平台文献数据库</h1>
+</div>
+<h2>1. 软件</h2>
+<ul>
+<li><p><a href="https://www.zotero.org/" target=&ldquo;blank&rdquo;>Zotero</a></p>
+<ul>
+<li><p><a href="https://github.com/retorquere/zotero-better-bibtex" target=&ldquo;blank&rdquo;>Better Bib(Lax)Tex</a></p>
+</li>
+<li><p><a href="http://zotfile.com/" target=&ldquo;blank&rdquo;>ZotFile</a></p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/zotero-connector/ekhagklcjbdpajgpjgmbionohlpdbjgc" target=&ldquo;blank&rdquo;>Zotero Connector (Chrome 插件)</a></p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>2. Zotero配合坚果云进行文献同步设置</h2>
+<ul>
+<li><p>坚果云中新建一个文件夹用于存放所有文献PDF及其他文件，文件夹名<b>必须为</b> <tt>storage</tt>，如<tt>D:\我的坚果云\storage</tt></p>
+</li>
+<li><p>建立文件夹软连接，从坚果云中<tt>storage</tt>指向Zotero用户路径下的<tt>storage</tt>，如<tt>C:\Users\ljzhu\Zotero\storage</tt>。
+打开cmd.exe，输入以下命令即可创建文件夹软连接（具体文件夹路径请根据自己情况修改）。</p>
+</li>
+</ul>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+rm -r C:\\Users\\ljzhu\\Zotero\\storage
+mklink /d C:\\Users\\jzhu\\Zotero\\storage D:\\我的坚果云\\storage
+
+屏幕显示：
+
+C:\\WINDOWS\\system32&gt;rm -r C:\\Users\\ljzhu\\Zotero\\storage
+C:\\WINDOWS\\system32&gt;mklink /d C:\\Users\\ljzhu\\Zotero\\storage D:\\我的坚果云\\storage
+为 C:\\Users\\ljzhu\\Zotero\\storage &lt;&lt;===&gt;&gt; D:\\我的坚果云\\storage 创建的符号链接
+</pre></div></div>
+<ul>
+<li><p>Zotero设置</p>
+<ul>
+<li><p>编辑 -&gt; 首选项 -&gt; 高级 -&gt; 文件和文件夹，链接附件的根目录填写坚果云同步目录，如<tt>D:\我的坚果云\storage</tt>；数据存储位置填写Zotero的文件目录
+（即为Zotero自己的同步目录，免费用户只有300M空间），如<tt>C:\Users\ljzhu\Zotero</tt>。</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Better BibTex设置</p>
+<ul>
+<li><p>Citation keys: <tt>[auth:lower]_[journal][&gt;0]_[year]|[auth:lower]_[Title:select,1,1]_[year]</tt></p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Zotfile设置（工具 -&gt; ZotFile Preferences）</p>
+<ul>
+<li><p>General settings, 上面填写Zotero自己的数据目录（即建立的软连接目录），如<tt>C:\Users\ljzhu\Zotero\storage</tt>；
+Location of Files中选择Custom Location，填写坚果云同步目录，<tt>D:\我的坚果云\storage</tt></p>
+</li>
+<li><p>勾选Use subfolder defined by，输入 <tt>\%w|%T|%a\%y</tt></p>
+</li>
+<li><p>Renaming rules: <tt>{%a_}{%y_}{%t}</tt></p>
+</li>
+</ul>
+
+</li>
+</ul>
+<p>这样设置之后，<tt>storage</tt>文件夹的目录结构如下：</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+./storage
+|__&lt;Journal or Publisher&gt;
+    |___&lt;Year&gt;
+       |__&lt;author&gt;_&lt;year&gt;_&lt;title&gt;.pdf
+</pre></div></div>
+<h2>3. 优缺点</h2>
+<ul>
+<li><p>优点</p>
+<ul>
+<li><p>多个平台之间文献和PDF文件的同步更新</p>
+</li>
+<li><p>Zotero提供的全文搜索、全文下载等便利功能</p>
+</li>
+<li><p>可以导出多个Bib(La)TeX格式的引文库，并实时更新</p>
+</li></ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li><p>使用Zotfile对文献进行重命名后，Zotero对PDF文件是文件链接的方式，因此，删除文献后，PDF文档并不会删除，需得同时手动删除</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>4. 文献管理经验</h2>
+<h3>4.1. 文献搜集整理</h3>
+<ul>
+<li><p>文献通过Zotero Connector插件自动添加，可归于多个分类，如研究内容、文章等</p>
+</li>
+<li><p>添加原文并由Zotfile重命名后存入storage文件夹，由坚果云同步</p>
+</li>
+<li><p>添加多个Tags方便查找：</p>
+<ul>
+<li><p>文章类型 [原理、方法、应用]</p>
+</li>
+<li><p>阅读状态 [DONE、TODO、DOING]</p>
+</li>
+<li><p>借鉴意义 [重要、参考]</p>
+</li></ul>
+</li>
+<li><p>添加一条Notes，可通过PaperShip同步编辑，包括但不仅限于以下内容：</p>
+<ul>
+<li><p>文章亮点</p>
+</li>
+<li><p>研究区简介</p>
+</li>
+<li><p>方法步骤</p>
+</li>
+<li><p>共享数据</p>
+</li>
+<li><p>…</p>
+</li></ul>
+</li>
+<li><p>设置相关文献 (Related)</p>
+</li>
+</ul>
+<h3>4.2. 文档中插入文献</h3>
+<ul>
+<li><p>Better BibTeX插件的自动导出功能可以方便地更新文献库，直接用于<span class="latex">L<sup>a</sup>T<sub>e</sub>X</span></p>
+</li>
+<li><p>通过Zotero的Word插件插入文献，不会受其他人修改的影响</p>
+</li>
+</ul>
+<h2>5. 一些改进</h2>
+<h3>5.1. Python代码整理storage文件夹</h3>
+<p>为了方便清理Zotero产生的冗余文件夹，以便通过坚果云查找文件，我写了一个简单的Python脚本来删除这些文件夹：</p>
+<div class="codeblock">
+<div class="blocktitle">Zotero冗余文件夹示例</div>
+<div class="blockcontent"><pre>
+./storage/5EML43II
+  |__.zotero-ft-cache
+  |__..zotero-ft-info
+</pre></div></div>
+<div class="codeblock">
+<div class="blocktitle">Remove redunctant folders under Zotero Storage</div>
+<div class="blockcontent"><pre>
+<span class = "comment">#! /usr/bin/env python</span>
+<span class = "comment"># -*- coding: utf-8 -*-</span>
+"""Tidy empty folders of storage of zotero
+    @author   : Liangjun Zhu
+"""
+from __future__ import unicode_literals
+
+import os
+from shutil import rmtree
+
+storage_dir = r'D:\我的坚果云\storage'
+suffix = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.tex', '.txt']
+deldirs = list()
+for root, dirs, files in os.walk(storage_dir):
+    <span class = "comment"># Empty folder</span>
+    if not os.listdir(root):
+        deldirs.append(root)
+        continue
+    <span class = "comment"># folder without valid files</span>
+    for i in files:
+        for suf in suffix:
+            if i.find(suf) &lt; 0:
+                continue
+            else:
+                break
+        else:  <span class = "comment"># Can not find any useful documents.</span>
+            deldirs.append(root)
+
+deldirs = list(set(deldirs))
+if storage_dir in deldirs:
+    deldirs.remove(storage_dir)
+for deldir in deldirs:
+    print('deleting %s...' % deldir)
+    rmtree(deldir)
+
+</pre></div></div>
+<ul>
+<li><p>修改<tt>storage_dir</tt>路径(如<tt>r'D:\我的坚果云\storage&rsquo;</tt>)为你自己的路径</p>
+</li>
+<li><p>保存文件为<tt>*.py</tt>，双击即可运行（前提是电脑上正确配置过<tt>python</tt>）</p>
+</li>
+<li><p>添加Windows计划任务，定期执行该脚本</p>
+</li>
+</ul>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-07-23, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://www.math.ucla.edu/~wotaoyin/" target="blank">Prof. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>
