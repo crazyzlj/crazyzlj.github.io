@@ -62,12 +62,40 @@ try {
 </div>
 <p><a href="SEIMSFramework_EMS.zh.html">中文版</a></p>
 <h2>Overview</h2>
+<p>Spatially distributed watershed models have been widely used to understand watershed processes and
+conduct associated applications such as scenario analysis. With the increasing modeling needs for
+high spatial-temporal resolution watershed simulations with diverse watershed characteristics, it
+is necessary to develop a flexible and extensible watershed modeling framework with the support of
+parallel computing. This study introduced <b>an open-source, modular, and parallelized watershed modeling
+framework (i.e., SEIMS, short for Spatially Explicit Integrated Modeling System) to facilitate rapid
+development and applications of parallelized spatially distributed watershed models</b>.</p>
+<p>First, SEIMS was designed with a flexible modular structure, in which each module follows standard
+interfaces and corresponds to one simulation algorithm for a watershed subprocess. This makes the
+user-configured modules can be dynamically combined as a workflow to conduct the simulation for a
+specific application. Then, a multi-level parallel-computing middleware was constructed in SEIMS to
+speed up the computational efficiency of inside-model execution and model-level applications.
+This middleware for inside-model execution is based on an improved two-level (i.e., subbasin-level and
+basic simulation unit level) parallel computing approach. By this approach together with the metadata
+scheme of the modular structure, users can <b>add their own algorithms in a nearly serial programming manner
+and construct parallelized watershed models without the steep learning curve of using parallel-computing
+techniques</b>. Furthermore, a utility tool based on job management was implemented for SEIMS to facilitate
+the parallel computation of watershed model applications which need numerous model runs (such as spatial
+optimization of watershed best management practices).</p>
+<p>The effectiveness and efficiency of SEIMS were illustrated through the simulation of streamflow in the
+Youwuzhen watershed, Southeastern China.</p>
 <h2>Software availablility</h2>
 <ul>
 <li><p>Open source at <a href="https://github.com/lreis2415/SEIMS" target=&ldquo;blank&rdquo;>github.com/lreis2415/SEIMS</a>.</p>
 </li>
 </ul>
 <h2>Representation</h2>
+<ul>
+<li><p>Development of a modular and parallelized watershed modeling framework. <i>1st Regional Conference on
+Environmental Modeling and Software (Asian Region)</i>, May. 18–20, <b>2019</b>. Nanjing, China.
+<a href="ppts/2019-iEMSsRegion-SEIMSFramework.pdf" target=&ldquo;blank&rdquo;>Download PPT</a>
+(<a href="https://zhulj-blog.oss-cn-beijing.aliyuncs.com/SEIMS/2019-iEMSsRegion-SEIMSFramework.pdf" target=&ldquo;blank&rdquo;>alternative download link</a>)</p>
+</li>
+</ul>
 <h2>Review history</h2>
 <ul>
 <li><p>Submission: 2018-9-18</p>
