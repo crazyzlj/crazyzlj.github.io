@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>Effects of different spatial configuration units for the spatial optimization of watershed best management practice scenarios（不同空间配置单元对流域最佳管理措施空间优化的影响）</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75301149-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">朱良君</div>
+<div class="menu-item"><a href="index.zh.html">主页</a></div>
+<div class="menu-item"><a href="cv.zh.html">简历</a></div>
+<div class="menu-item"><a href="index.html">English&nbsp;version</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">科研</div>
+<div class="menu-item"><a href="research_summary.zh.html">概况</a></div>
+<div class="menu-item"><a href="publication.zh.html">论著</a></div>
+<div class="menu-item"><a href="software.zh.html">软件</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">博客&amp;教程</div>
+<div class="menu-item"><a href="research_apps.zh.html">科研相关软件&amp;环境配置</a></div>
+<div class="menu-item"><a href="watershed_modeling.zh.html">流域过程建模</a></div>
+<div class="menu-item"><a href="programming.zh.html">编程</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">链接</div>
+<div class="menu-item"><a href="people.zh.html">实验室成员</a></div>
+<div class="menu-item"><a href="gis_data.zh.html">GIS数据</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Effects of different spatial configuration units for the spatial optimization of watershed best management practice scenarios（不同空间配置单元对流域最佳管理措施空间优化的影响）</h1>
+<div id="subtitle"><b>朱良君</b>, 秦承志*, 朱阿兴, 刘军志, 吴辉</div>
+</div>
+<p><a href="BMPsCfgUnitsCmp_Water.html">English version</a></p>
+<h2>概述</h2>
+<p>流域内不同的管理措施空间配置方案（情景）会产生不同的环境、经济效益，并且实际实施中的可行性也不同。
+现有研究已经提出多种不同的空间离散化单元用作流域最佳管理措施（BMP）的空间配置单元，如HRU、
+空间位置明确的HRU（spatially explicit HRUs）、具有上下游关系的地块（hydrologically connected
+fields）、坡位单元（slope position units）等，<b>不同的空间配置单元直接导致流域管理措施情景以及情景优化结果的差异。
+但对于这些空间配置单元对流域管理措施情景优化的影响，目前还缺乏基于同一流域模型的定量对比分析</b>。</p>
+<p>本文基于<a href="SEIMSFramework_EMS.zh.html">全分布式流域建模框架SEIMS</a>和具有代表性的多目标优化算法NSGA-II，
+比较了前述四种空间配置单元对流域管理措施情景优化的影响。不同的空间配置单元可相应结合不同层次的管理措施空间配置知识，
+这些知识的使用也在对比试验中进行了考虑，例如专家知识利用程度最低的随机配置方式、考虑单一管理措施与土地利用/坡位间适配性的知识、
+考虑上下游关系知识、考虑管理措施对坡面上不同坡位间的空间配置知识。</p>
+<p>在南方红壤区、长汀游屋镇小流域的实验结果表明：<b>具有上下游关系的地块、坡位这样能结合考虑上下游关系知识、
+坡面上不同位置间的管理措施空间配置知识的空间配置单元，对于流域管理措施情景优化最有效；
+尤其是坡位单元结合使用坡面上不同坡位间的管理措施空间配置知识时，所得的情景优化结果相对而言更合理、且优化效率高</b>。</p>
+<h2>软件</h2>
+<ul>
+<li><p>开源项目地址：<a href="https://github.com/lreis2415/SEIMS" target=&ldquo;blank&rdquo;>github.com/lreis2415/SEIMS</a>。</p>
+</li>
+</ul>
+<h2>更新</h2>
+<p>我们题为&ldquo;A modular and parallelized watershed modeling framework&rdquo;的文章已于2019年9月26日发表在
+<i>Environmental Modelling & Software</i>上，因此文中第33个引文应更新为：</p>
+<p>Zhu, L.-J.; Liu, J.; Qin, C.-Z.; Zhu, A.-X. A modular and parallelized watershed modeling framework. Environ.
+Model. Softw. <b>2019</b>, 122, 104526.
+<a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=A+modular+and+parallelized+watershed+modeling+framework&amp;btnG=" target=&ldquo;blank&rdquo;>Google Scholar</a>
+<a href="https://doi.org/10.1016/j.envsoft.2019.104526" target=&ldquo;blank&rdquo;>CrossRef</a></p>
+<h2>勘误</h2>
+<p>在文章修订阶段添加了一个引文后，正文中若干处引用没有及时更新，由此导致的阅读不便，请您谅解，特此勘误。</p>
+<ul>
+<li><p>2.4节第二段第五行结尾处的标号<b>[39]</b>应为<b>[40]</b>；</p>
+</li>
+<li><p>2.6节第二段第1、13和18行中的标号<b>[33]</b>应为<b>[34]</b>；</p>
+</li>
+<li><p>2.6节第二段第一行结尾处的标号<b>[2,16&ndash;18]</b>应为<b>[2,17&ndash;19]</b>；</p>
+</li>
+<li><p>2.7节第一段最后一行的<b>[32]</b>应为<b>[33]</b>；</p>
+</li>
+<li><p>2.7节第四段第五行结尾处的<b>[33]</b>应为<b>[34]</b>。</p>
+</li>
+</ul>
+<p>希望对本文感兴趣的读者能够通过<a href="https://zhulj-blog.oss-cn-beijing.aliyuncs.com/publications/zhu_2019_Water_BMPsCfgUnitsCmp_updated.pdf" target=&ldquo;blank&rdquo;>这个链接</a>
+下载更新及更正后的版本。</p>
+<h2>评审历史</h2>
+<ul>
+<li><p>投稿: 2018-12-22</p>
+</li>
+<li><p>MDPI英文编辑: 2018-12-20</p>
+</li>
+<li><p>收到投稿并等待送审: 2018-12-22</p>
+</li>
+<li><p>审稿中: 2018-12-24</p>
+</li>
+<li><p>审稿意见返回，等待决定: 2019-01-15</p>
+</li>
+<li><p><b>小修后接收（学术编辑）</b>: 2019-01-18</p>
+<ul>
+<li><p>学术编辑意见: <b>I believe the work presented here has scientific merit and
+very useful to the professional modeling community.</b> Please refer to the comments made by
+reviewers 1 and 2 and make necessary revisions to the manuscript.</p>
+</li></ul>
+</li>
+<li><p><b>大修（编辑助理）</b>: 2019-01-20</p>
+<ul>
+<li><p>审稿意见1: This is <b>a well-written and well-organized manuscript</b> evaluating the effects
+of spatial configuration units of BMPs on soil loss using optimization methods using the
+modeling approach. The authors have used the spatial configuration units as a basis to evaluate
+where in the watershed BMPs should be placed to reduce its impact on downstream water quality.
+<b>This paper is of great benefit to the scientific community in general</b>, and to the forest and
+agricultural managers who will be relying on modeling tools to support management activities
+under future land use and climate change. <b>The introduction is very well written. The authors
+give a comprehensive of BMP optimization schemes previously used in such studies and their
+limitations.</b> The goal and specific questions are clearly defined. The method section describes
+their approach well and aligns well with results section. The QSWAT model used for this study
+could prove to be a promising tool for decision making. <u>I have minor editorial suggestions.</u></p>
+</li>
+<li><p>审稿意见2: The manuscript compared the effectiveness of four ways to link BMPs to land
+characteristics during optimization. <b>The results were well presented and can direct the work
+of BMP placement in the future.</b> The work has its merits, <u>but issues were found that can have
+serious negative impact to its acceptance by academia. The main problem of this manuscript is
+its organization.</u> The author preferred to provide a rough and generalized description first,
+and then provide more details in a later section. This is not wrong, but the general description
+is often too generalized that readers cannot understand what the description actually referred to.
+This is particular serious before section 2.3 (but later sections also have this problem).
+The general description must contain enough information and definition so readers can understand
+it right away without referring to other parts of the manuscript. If detailed information must be
+left in a later section, the general description should contain a &ldquo;pointer&rdquo; to point readers to
+the correct section (e.g. &ldquo;section x.x contains more detailed information about xxx&rdquo;) that contains
+detailed information. <u>The second problem (which is related to the first problem) is that many
+terms were not defined when they were used the first time in the manuscript</u>. For example, the
+abstract is very hard to read because of all the <u>undefined terms such as &ldquo;spatial unit&rdquo;</u>. The
+<u>abstract and the introduction parts must be reorganized</u>.</p>
+</li>
+<li><p>审稿意见3: This is <b>a solid piece of work addressing the watershed best management practice
+(BMP) scenarios optimization with regard to effectiveness, optimizing efficiency, and practicality</b>
+by comparing different BMP configuration units based on one same watershed. The manuscript is <b>written
+clearly and highlights the need for research on this topic</b>. The authors provide <b>sufficient methodological
+detail and the research findings are robust with practical implications</b>.</p>
+</li></ul>
+</li>
+<li><p>修改后返回: 2019-01-24</p>
+</li>
+<li><p><b>大修（审稿人2）</b>: 2019-01-25</p>
+<ul>
+<li><p>审稿意见2: Thank you for providing an updated copy of the manuscript. The reviewer saw a
+lot of improvements, but issues still exist. <b>This manuscript has good technical merit, so I would
+really like to see it published with improved writing</b>. <u>I would seriously suggest the authors to
+refine writing in the manuscript</u>. One of the authors lives in the U.S., and I highly recommend
+him/her (and/or his/her American colleagues) to review the manuscript for clarity.</p>
+</li></ul>
+</li>
+<li><p>修改后返回: 2019-01-28</p>
+</li>
+<li><p>接收: 2019-01-31</p>
+</li>
+</ul>
+<h2>引用格式</h2>
+<p>Zhu, L.J., Qin, C.Z., Zhu, A.X., Liu, J.Z., and Wu, H. <b>2019</b>. Effects of different spatial configuration units for the
+spatial optimization of watershed best management practice scenarios. <i>Water</i>, 11(2), 262.
+doi:<a href="https://doi.org/10.3390/w11020262" target=&ldquo;blank&rdquo;>10.3390/w11020262</a></p>
+<a href="javascript:history.go(-1)" onMouseOver="self.status=document.referrer;return true">&laquo; Back</a>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-06-12, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://www.math.ucla.edu/~wotaoyin/" target="blank">Prof. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>

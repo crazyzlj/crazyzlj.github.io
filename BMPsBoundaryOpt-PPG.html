@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>Spatial optimization of watershed best management practice scenarios based on boundary-adaptive configuration units</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75301149-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Liang-Jun Zhu</div>
+<div class="menu-item"><a href="index.html">Home</a></div>
+<div class="menu-item"><a href="cv.html">Biography</a></div>
+<div class="menu-item"><a href="index.zh.html">中文版</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Research</div>
+<div class="menu-item"><a href="research_summary.html">Summary</a></div>
+<div class="menu-item"><a href="publication.html">Publication</a></div>
+<div class="menu-item"><a href="software.html">Software</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Post&amp;Tutorial</div>
+<div class="menu-item"><a href="research_apps.html">Research&nbsp;apps</a></div>
+<div class="menu-item"><a href="watershed_modeling.html">Watershed&nbsp;modeling</a></div>
+<div class="menu-item"><a href="programming.html">Programming</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">Links</div>
+<div class="menu-item"><a href="people.html">People</a></div>
+<div class="menu-item"><a href="gis_data.html">GIS&nbsp;data</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Spatial optimization of watershed best management practice scenarios based on boundary-adaptive configuration units</h1>
+<div id="subtitle"><b>Liang-Jun Zhu</b>, Cheng-Zhi Qin*, and A-Xing Zhu</div>
+</div>
+<p><a href="BMPsBoundaryOpt-PPG.zh.html">中文版</a></p>
+<h2>Overview</h2>
+<p>Spatial optimization of watershed best management practice (BMP) scenarios based on watershed modeling is
+an effective decision support tool for watershed management.
+Existing spatial optimization methods of BMP scenarios commonly utilized <b>boundary-fixed spatial units
+for configuring BMPs</b> which entirely ignores a dimension of solution space
+constructed by adjusting the boundaries of configuration units.
+In this paper, we proposed a new approach to the spatial optimization of BMP scenarios based on <b>boundary-adaptive
+configuration units</b>.</p>
+<p>The proposed optimization approach adopts slope positions (e.g., ridge [or summit], backslope, and valley;
+which are basic landform units along hillslope inherently related to physical hillslope processes)
+as BMP configuration units and <b>dynamically adjusts their boundaries by using the quantitative information
+on their spatial gradation</b> (i.e., fuzzy slope positions) during the optimization.</p>
+<p>Experimental results showed that the proposed optimization approach based on boundary-adaptive slope position
+units can significantly enlarge the search space for optimal solutions and obtain optimal BMP scenarios with
+better cost-effectiveness and higher optimization efficiency.</p>
+<p><b>The proposed optimization approach provides a new framework for spatial optimization of BMP scenarios</b>,
+in which other watershed models, intelligent optimization algorithms, and BMP configuration units available
+for boundary adjustment can be alternatively applied to BMP scenario optimization in a boundary-adaptive manner.</p>
+<p>This study also exemplifies the potential of transforming the qualitative, vague, and empirical geographical
+knowledge (that on slope position units related to physical hillslope processes and BMPs) to the quantitative,
+explicit, automated geospatial algorithms for effectively resolving environmental management problems in
+a more geographical meaningful way.</p>
+<h2>Software availablility</h2>
+<ul>
+<li><p>Scenario analysis tool with boundary-adaptive configuration units: <a href="https://github.com/lreis2415/SEIMS/tree/master/seims/scenario_analysis" target=&ldquo;blank&rdquo;>SEIMS: Scenario Analysis</a></p>
+</li>
+<li><p>Automatic tool for fuzzy slope positions: <a href="https://github.com/lreis2415/AutoFuzSlpPos" target=&ldquo;blank&rdquo;>AutoFuzSlpPos</a></p>
+</li>
+</ul>
+<h2>Review history</h2>
+<ul>
+<li><p>Submission: 2020-2-1</p>
+</li>
+<li><p>Awaiting Editor Assignment: 2020-2-1, ADM: Brian, Jayne (Associate Editor)</p>
+</li>
+<li><p>Awaiting Reviewer Selection: 2020-2-10, ADM: Malanson, George (Managing Editor)</p>
+</li>
+<li><p>Awaiting Reviewer Assignment: 2020-2-15, then changed to awaiting reviewer selection again, and then awaiting reviewer assignment (2020-3-5)</p>
+</li>
+<li><p>Awaiting Reviewer Scores: 2020-3-11</p>
+</li>
+<li><p>Awaiting Final Decision: 2020-4-13</p>
+</li>
+<li><p><b>Minor revision</b>: 2020-4-15</p>
+<ul>
+<li><p>Reviewer #1: I like this contribution, and congratulate the authors for <b>a thoughtful, insightful and substantive piece of work.</b>
+I must confess, up-front, that this paper is not in my direct area of expertise, so I am unable to address any issues for technical
+aspects of this paper, but <b>the rationale for the work is clear, and the specific contribution of the study is well validated.</b>
+<b>The paper is clear and well written.</b> The structure works well, with clear articulation of extensions to previous methodological approaches
+(i.e. building upon <a href="BMPsOptSlpPos-JSWC.html">Qin et al., 2018</a>).
+<b>I applaud the effective documentation of the case study – it works well, amply justifying the approach and substantiating the contribution of the paper.</b>
+<b>Ultimately, I completely agree with the premise of this paper – we need more flexible approaches to boundary identification and mapping to inform
+management applications (including use of optimization procedures).</b>
+I have just one suggestion. In order to promote uptake of this work, capturing a wider readership and potential citations,
+<u>I wonder if the generic nature of the approach could be expressed explicitly.</u> This could simply take the form of an additional sentence
+or two early in the introduction, broadening the scope for the issues addressed in this study.
+<u>Associated with this point, I have a minor gripe at the end of the discussion, as I expected to see more substantive contextualization
+of findings of this work, relating the contribution more effectively to the international literature (and associated implications).</u>
+If this issue was addressed, and a sentence to this effect was included within the abstract, I sense that there may be wider uptake of this paper.
+<b>I always appreciate it when I can glean the core contribution from papers that are outside my core area of expertise.</b></p>
+</li>
+<li><p>Reviewer #2: <b>The manuscript is very interesting</b>. I think it is in the scope of Progress in Physical Geography. My comments:
+<b>(1)</b> &ldquo;Boundary-adaptive configuration units&rdquo; is actually according to slope positions in this paper, and BMP configuration units and dynamically
+adjusts their boundaries by using the quantitative information on their spatial gradation. Is it right the boundary-adaptive configuration units
+were for slope positions, not for BMPs?
+<b>(2)</b> BMPs are management plans directly implemented by farmers or the government. It doesn't mean very much
+by fluctuating management practices in reality. The authors need to justify that the given work is practically useful in the real world.
+<b>(3)</b> The methods may be suitable for BMPs practices of soil erosion control. Could it be used to TN and TP control? Do explain.</p>
+</li></ul>
+</li>
+<li><p>Submit the revision and Awaiting Admin Processing and then Awaiting Reviewer Selection (ADM: Brian, Jayne): 2020-5-12</p>
+</li>
+<li><p><b>Accepted</b>: 2020-6-3 (<b>after status update requirement at 2020-6-2</b>)</p>
+<ul>
+<li><p>Awaiting Copy Editor Checklist: 2020-6-3</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Citation</h2>
+<p>Zhu, L.J., Qin, C.Z., and Zhu, A.X., <b>2020</b>. Spatial optimization of watershed best management practice
+scenarios based on boundary-adaptive configuration units,
+<i>Progress in Physical Geography: Earth and Environment</i>.</p>
+<a href="javascript:history.go(-1)" onMouseOver="self.status=document.referrer;return true">&laquo; Back</a>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-06-12, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://www.math.ucla.edu/~wotaoyin/" target="blank">Prof. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>
