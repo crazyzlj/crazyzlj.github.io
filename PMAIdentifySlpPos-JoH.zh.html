@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>Identification of watershed priority management areas based on landscape positions: An implementation using SWAT+ (基于坡位单元的流域优先控制区识别)</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-75301149-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">朱良君</div>
+<div class="menu-item"><a href="index.zh.html">主页</a></div>
+<div class="menu-item"><a href="cv.zh.html">简历</a></div>
+<div class="menu-item"><a href="index.html">English&nbsp;version</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">科研</div>
+<div class="menu-item"><a href="research_summary.zh.html">概况</a></div>
+<div class="menu-item"><a href="publication.zh.html">论著</a></div>
+<div class="menu-item"><a href="software.zh.html">软件</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">博客&amp;教程</div>
+<div class="menu-item"><a href="research_apps.zh.html">科研相关软件&amp;环境配置</a></div>
+<div class="menu-item"><a href="watershed_modeling.zh.html">流域过程建模</a></div>
+<div class="menu-item"><a href="programming.zh.html">编程</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Identification of watershed priority management areas based on landscape positions: An implementation using SWAT+ (基于坡位单元的流域优先控制区识别)</h1>
+<div id="subtitle">吴彤, <b>朱良君*</b>, 申申, 朱阿兴, 史明昌, 秦承志</div>
+</div>
+<p><a href="PMAIdentifySlpPos-JoH.html">English version</a></p>
+<h2>概述</h2>
+<h2>数据</h2>
+<ul>
+<li><p>Open source at <a href="https://github.com/lreis2415/WatershedModelingData" target=&ldquo;blank&rdquo;>github.com/lreis2415/WatershedModelingData</a>.</p>
+</li>
+</ul>
+<h2>会议报告</h2>
+<ul>
+<li><p>吴彤. 基于坡位单元的流域优先控制区识别. <i>第十届全国地理信息科学博士生学术论坛</i>,
+<b>2022</b>, 12.17&ndash;18, 线上会议.
+<a href="ppts/2022-CN-PMAIdentification-wut2022-12-17.pdf" target=&ldquo;blank&rdquo;>Download PPT</a>
+(<a href="https://zhulj-blog.oss-cn-beijing.aliyuncs.com/ppts/2022-CN-PMAIdentification-wut2022-12-17.pdf" target=&ldquo;blank&rdquo;>备用下载链接</a>)</p>
+</li>
+</ul>
+<h2>评审历史</h2>
+<ul>
+<li><p><b>第一次投稿</b>: 2022-01-19; <a href="review_history/PMAIdentifySlpPos-JoH/submission.pdf" target=&ldquo;blank&rdquo;>Manuscript-Submission</a></p>
+</li>
+<li><p>指定编辑: 2022-01-29 (于02-22询问进展)</p>
+</li>
+<li><p>审稿中: 2022-03-22 (于03-24再次邀请审稿人, 随后03-25变为审稿中)</p>
+</li>
+<li><p><b>拒稿并鼓励重投</b>: 2022-04-02; <a href="review_history/PMAIdentifySlpPos-JoH/Decision-Reject.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>编辑意见: … <b>Both reviewers agree that this topic is interesting and a good fit for the journal</b>. However, both have suggested major revisions …
+One of the major concerns of both reviewers was the fact that this new approach was only reviewed for one watershed with results that may or may not represent
+a significant improvement; therefore, this weakness should be addressed should you choose to revise and resubmit.</p>
+</li></ul>
+</li>
+<li><p><b>第二次投稿</b>: 2022-09-12; <a href="review_history/PMAIdentifySlpPos-JoH/revision1.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/PMAIdentifySlpPos-JoH/responses1.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>指定编辑: 2022-09-12 (于09-17询问进展)</p>
+</li>
+<li><p>审稿中: 2022-09-22 (于09-23, 09-29, 10-07, 和 11-04 再次邀请审稿人，最后一次是我们又推荐了潜在审稿人)</p>
+</li>
+<li><p>审稿完成: 三位审稿人分别于10-04, 11-14, 11-30完成</p>
+</li>
+<li><p>等待编辑处理: 2022-11-14 (11-30状态更新)</p>
+</li>
+<li><p>决定中: 12-01</p>
+</li>
+<li><p><b>大修</b>: 2022-12-04; <a href="review_history/PMAIdentifySlpPos-JoH/Decision-Major-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>编辑意见: … While all three find the article to be of potential interest to Journal readers and a substantially revised version of the original manuscript,
+all three recommend additional major revisions before the manuscript can be considered for publication.
+<b>Please carefully review the major suggestions provided by each of the three reviewers which include more clarification of definitions and methods employed and
+consideration of the improvement of model efficiency relative to accepted standards.</b></p>
+</li></ul>
+</li>
+<li><p><b>大修后返回</b>: 2022-12-25; <a href="review_history/PMAIdentifySlpPos-JoH/revision2.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/PMAIdentifySlpPos-JoH/responses2.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>指定编辑: 2022-12-26 (12-29状态更新)</p>
+</li>
+<li><p>审稿中: 2023-01-10</p>
+</li>
+<li><p>审稿完成: 两位审稿人分别于01-15和01-17完成</p>
+</li>
+<li><p>等待编辑处理: 2023-01-17</p>
+</li>
+<li><p><b>小修</b>: 2023-01-26; <a href="review_history/PMAIdentifySlpPos-JoH/Decision-Minor-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>编辑意见: I am pleased to say that it has been favourably received and publication with minor revision is recommended. Both previous referees have
+reviewed your revised manuscript and found that you thoroughly addressed most of their major concerns. Reviewer
+that need to be addressed, however, reviewer
+I think you can try to address these remaining concerns through your introduction and discussion sections.</p>
+</li></ul>
+</li>
+<li><p><b>小修后返回</b>: 2023-01-29; <a href="review_history/PMAIdentifySlpPos-JoH/revision3.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/PMAIdentifySlpPos-JoH/responses3.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>指定编辑: 2023-01-30 (01-31状态更新)</p>
+</li>
+<li><p>决定中: 2023-02-12</p>
+</li>
+<li><p><b>接收</b>: 2023-02-13; <a href="review_history/PMAIdentifySlpPos-JoH/Decision-Accept.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+</li>
+</ul>
+<h2>引用格式</h2>
+<p>Wu, T., Zhu, L.J., Shen, S., Zhu, A.X., Shi, M., and Qin, C.Z. <b>2023</b>.
+Identification of watershed priority management areas based on landscape positions: An implementation using SWAT+.
+<i>Journal of Hydrology</i>.
+doi:<a href="https://doi.org/10.1016/j.jhydrol.2023.129281" target=&ldquo;blank&rdquo;>10.1016/j.jhydrol.2023.129281</a></p>
+<a href="javascript:history.go(-1)" onMouseOver="self.status=document.referrer;return true">&laquo; Back</a>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-02-27, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://wotaoyin.mathopt.com/" target="blank">Dr. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>
