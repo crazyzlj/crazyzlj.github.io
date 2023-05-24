@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" type="image/png" href="styles/zhu.ico" />
+<link rel="stylesheet" href="styles/jemdoc.css" type="text/css" />
+<title>Optimizing the implementation plan of watershed best management practices with time-varying effectiveness under stepwise investment (逐步投资约束下考虑BMP时变效益的流域管理措施实施次序优化方法)</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G179QT8S4B-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-G179QT8S4B-1');
+</script>
+<div class="wrapper"> <!-- wotao: "wrapper" class for new style -->
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">朱良君</div>
+<div class="menu-item"><a href="index.zh.html">主页</a></div>
+<div class="menu-item"><a href="cv.zh.html">简历</a></div>
+<div class="menu-item"><a href="index.html">English&nbsp;version</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">科研</div>
+<div class="menu-item"><a href="research_summary.zh.html">概况</a></div>
+<div class="menu-item"><a href="publication.zh.html">论著</a></div>
+<div class="menu-item"><a href="software.zh.html">软件</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"> <!-- wotao: added for the "menu-box" style -->
+<div class="menu-category">博客&amp;教程</div>
+<div class="menu-item"><a href="research_apps.zh.html">科研相关软件&amp;环境配置</a></div>
+<div class="menu-item"><a href="watershed_modeling.zh.html">流域过程建模</a></div>
+<div class="menu-item"><a href="programming.zh.html">编程</a></div>
+</div> <!-- wotao: end of "menu-box" style -->
+<div class="menu-box"><a href='https://clustrmaps.com/site/x73h' title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=080808&w=150&t=tt&d=L1Y2sFwqcivBgltjD36ZuoE9dYHe_ac4K7_S1dhqu2U&co=e2edf5&ct=e62d4e'/></a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Optimizing the implementation plan of watershed best management practices with time-varying effectiveness under stepwise investment (逐步投资约束下考虑BMP时变效益的流域管理措施实施次序优化方法)</h1>
+<div id="subtitle">申申, 秦承志, <b>朱良君*</b>, 朱阿兴 </div>
+</div>
+<p><a href="BMPsOptRoadmap-WRR.html">English version</a></p>
+<h2>概述</h2>
+<h2>软件</h2>
+<ul>
+<li><p>开源项目地址：<a href="https://github.com/lreis2415/SEIMS" target=&ldquo;blank&rdquo;>github.com/lreis2415/SEIMS</a>.</p>
+</li>
+</ul>
+<h2>会议报告</h2>
+<h2>评审历史</h2>
+<ul>
+<li><p><b>投稿</b>: 2022-06-07; <a href="review_history/BMPsOptRoadmap-WRR/submission.pdf" target=&ldquo;blank&rdquo;>Manuscript-Submission</a></p>
+</li>
+<li><p>完成初步质量控制检查: 2022-06-10</p>
+</li>
+<li><p>指定主编: 2022-06-11</p>
+</li>
+<li><p>指定副主编: 2022-07-05</p>
+</li>
+<li><p>联系潜在审稿人: 2022-07-16、08-01、08-03</p>
+</li>
+<li><p>审稿中: 2022-07-20</p>
+</li>
+<li><p>等待副主编意见: 2022-08-24 (于09-07询问进展)</p>
+</li>
+<li><p>等待主编决定: 2022-09-14</p>
+</li>
+<li><p><b>大修</b>: 2022-09-15; <a href="review_history/BMPsOptRoadmap-WRR/Decision-Major-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>编辑意见: In agreement with the reviewers, there is some additional framing and analysis to be done for publication. Particularly, the case study is a very small watershed that may not be representative (as reviewer 2 points out) and thus generalizable &ndash; a second case would be ideal. Finally, the organization and writing of the paper could use improvement as pointed out by reviewers 1 and 3. <b>These improvements will make the paper in a place for publication with WRR which strives to publish work that the readership can use either in methods for their own research or as evidence that a research path is worth pursuing.</b></p>
+</li>
+<li><p>审稿人#1 (major revisions): This manuscript applies an expanded version of an existing optimization method for siting soil erosion BMPs. The paper focuses on developing modifications to the spatial optimization framework that account for (1) different implementation sequences of BMPs; (2) calculation of net present value of the BMPs; (3) time-varying effectiveness of the BMPs; and (4) watershed modeling. <b>This study thus provides a valuable tool for estimating the effectiveness of different BMP scenarios but would benefit from expanding of the application presented (beyond erosion control BMPs), additional discussion of the results, and thorough editing.</b> I therefore recommend this manuscript for publication in the of Water Resources Research after major revisions. (1) Perhaps it is my own bias, but when I read the title and the abstract, I expected this to be about urban hydrology BMPs (e.g., rain gardens, bioretention, permeable pavement, etc). (2) <b>I see no reason why these methods could not be applied to optimize spatial configuration of urban stormwater BMPs, and I think a lot of readers would be interested to see an application of this. I would encourage the authors to think about a second case study that applies the methods in a different (urban) setting - this would really strengthen the paper and widen the interested audience.</b> (3) I found the &ldquo;experimental results and discussion&rdquo; section lacking. Most of the text in this section is just results, and things that someone could glean just from the plots… Please add more discussion - what do your results mean? There are a lot of claims that are not well supported…</p>
+</li>
+<li><p>审稿人#2 (minor revisions): <b>The manuscript is very interesting. I think it is in the scope of WRR.</b> (1) It is true that effectiveness of BMPs is time varying, but how can we get these time varying data for each BMP? (2) Will it be better that we implement BMPs step by step according to the time? (3) If a large watershed (over 1000 km2) was chosen, would the framework of this paper be still working? Do some explain. (4) the BMPs in this case were fixed … In my opinion, they are not typical BMPs. How about if both engineering BMPs and non-engineering BMPs are adopted together?</p>
+</li>
+<li><p>审稿人#3 (minor revisions): The authors proposed a new optimization framework for implementation orders of BMPs with time-varying effectiveness under stepwise investment, introduced net present value to compare net costs of different BMP scenarios, and exemplified the basic idea of extending BMP optimization to spatio-temporal level. <b>It is an interesting issue.</b> However, there are some suggestions and questions as follows…</p>
+</li></ul>
+</li>
+<li><p><b>大修后返回</b>: 2022-11-12; <a href="review_history/BMPsOptRoadmap-WRR/revision1.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/BMPsOptRoadmap-WRR/responses1.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>等待作者提交修改: 2022-11-17; <a href="review_history/BMPsOptRoadmap-WRR/QualityControl-author_order_link_issues.pdf" target=&ldquo;blank&rdquo;>Submission Error Letter</a></p>
+</li>
+<li><p>完成初步质量审查: 2022-11-22</p>
+</li>
+<li><p>等待主编决定: 2022-11-22</p>
+</li>
+<li><p>指定副主编: 2022-12-06</p>
+</li>
+<li><p>联系潜在审稿人: 2022-12-19</p>
+</li>
+<li><p>审稿中: 2022-12-22</p>
+</li>
+<li><p>等待副主编意见: 2023-02-11 (于02-20询问进展)</p>
+</li>
+<li><p>等待主编决定: 2023-02-22 (于03-05询问进展)</p>
+</li>
+<li><p><b>小修</b>: 2023-03-08; <a href="review_history/BMPsOptRoadmap-WRR/Decision-Minor-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>审稿人#1: <b>Overall I think this paper is suitable for publication and is an important contribution to the BMP optimization literature.</b> I find the authors responses to comments acceptable and appreciate the addition section added on applicability to other watershed optimization problems. However, I still find the language used in the article to be vague and below the standard I believe is required for WRR. I strongly suggest the authors sit down with an editor and revise the paper line-by-line. I cannot provide line-by-line edits for the entire paper, but provide some examples below.</p>
+</li></ul>
+</li>
+<li><p><b>小修后返回</b>: 2023-03-11; <a href="review_history/BMPsOptRoadmap-WRR/revision2.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/BMPsOptRoadmap-WRR/responses2.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>完成初步质量审查: 2023-03-15</p>
+</li>
+<li><p>等待主编决定: 2023-03-15 (于03-30询问进展)</p>
+</li>
+<li><p><b>主编决定 (语法问题、中国地图边界线问题)</b>: 2023-04-10; <a href="review_history/BMPsOptRoadmap-WRR/Decision-Grammar_and_map-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+</li>
+<li><p><b>提交修改稿</b>: 2023-04-19; <a href="review_history/BMPsOptRoadmap-WRR/revision3.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/BMPsOptRoadmap-WRR/responses3.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>等待作者提交修改: 2023-04-26; <a href="review_history/BMPsOptRoadmap-WRR/QualityControl-link_issue.pdf" target=&ldquo;blank&rdquo;>Submission Error Letter</a></p>
+<ul>
+<li><p>In Open Research Section, please provide an in-text citation in (Name, Year) format instead of the full link…</p>
+</li></ul>
+</li>
+<li><p>完成初步质量审查: 2023-04-27</p>
+</li>
+<li><p>等待主编决定: 2023-04-27 (于05-08询问进展)</p>
+</li>
+<li><p><b>主编决定 (建议删掉研究区示意图中的中国地图)</b>: 2023-05-09; <a href="review_history/BMPsOptRoadmap-WRR/Decision-map-revision.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+</li>
+<li><p><b>提交修改稿</b>: 2023-05-10; <a href="review_history/BMPsOptRoadmap-WRR/revision4.pdf" target=&ldquo;blank&rdquo;>Manuscript-Revision</a>, <a href="review_history/BMPsOptRoadmap-WRR/responses4.pdf" target=&ldquo;blank&rdquo;>Revisions and responses</a></p>
+</li>
+<li><p>完成初步质量审查: 2023-05-12</p>
+</li>
+<li><p>等待主编决定: 2023-05-12 (于05-19询问进展)</p>
+</li>
+<li><p><b>主编决定 (接收)</b>: 2023-05-23; <a href="review_history/BMPsOptRoadmap-WRR/Decision-Accept.pdf" target=&ldquo;blank&rdquo;>Decision Letter</a></p>
+<ul>
+<li><p>手稿移交生产出版: 2023-05-23</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>引用格式</h2>
+<p>Shen, S., Qin, C.Z., Zhu, L.J., and Zhu, A.X. <b>2023</b>.
+Optimizing the implementation plan of watershed best management practices with time-varying effectiveness under stepwise investment.
+<i>Water Resources Research</i>: e2022WR032986.
+doi:<a href="https://doi.org/10.1029/2022WR032986" target=&ldquo;blank&rdquo;>10.1029/2022WR032986</a></p>
+<a href="javascript:history.go(-1)" onMouseOver="self.status=document.referrer;return true">&laquo; Back</a>
+</td>
+</tr>
+</table>
+<div id="footer">
+<div id="footer-text">
+Last updated 2023-05-24, generated by <a href="http://www.mit.edu/~wsshin/jemdoc+mathjax.html" target="blank">jemdoc+MathJax</a> with
+the modification from <a href="https://wotaoyin.mathopt.com/" target="blank">Dr. Wotao Yin</a>.
+</div>
+</div>
+</div> <!-- wotao: "wrapper" class for new style -->
+</body>
+</html>
